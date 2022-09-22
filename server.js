@@ -19,7 +19,7 @@ const options = {
     origin: ORIGIN,
 }
 
-app.use(cors(options));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(userRoute)
