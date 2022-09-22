@@ -8,7 +8,7 @@ const postRoute = require('./routes/postsRoutes')
 const commentRoute = require('./routes/commentRoutes')
 
 const PORT = process.env.PORT || 3000
-const ORIGIN = process.env.ORIGIN
+const ORIGIN = process.env.ORIGIN || 'https://mern-app-by-ak.herokuapp.com/'
 
 //Connection established between MongoDB and Script.js using Mongoose
 mongoose.connect(process.env.DB,
@@ -19,7 +19,7 @@ const options = {
     origin: ORIGIN,
 }
 
-app.use(cors());
+app.use(cors(options));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(userRoute)
@@ -34,5 +34,7 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })
 }
+
+// const API = process.env.NODE_ENV === 'production' ? 'https://yourapp.herokuapp.com/api' : 'http://localhost:5000/api';
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
