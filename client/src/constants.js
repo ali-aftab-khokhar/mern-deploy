@@ -36,7 +36,8 @@ const constants = {
     my_profile: 'My Profile',
     loginFirst: 'Login first to check comments',
     like: 'Like',
-    unlike: 'Unlike'
+    unlike: 'Unlike',
+    likes: 'Like',
 }
 
 export default constants

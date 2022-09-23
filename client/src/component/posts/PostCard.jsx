@@ -71,7 +71,7 @@ const PostCard = (props) => {
                                     context.isLoggedIn.email ?
                                         <div className='d-flex'>
                                             <button className="btn btn-dark" value={post._id} onClick={openComments}>
-                                                {constants.comments}<FaComments className='ms-2 mb-0 h5 icons' />
+                                                {constants.comments}
                                             </button>
                                             <div>
                                                 {
@@ -93,10 +93,10 @@ const PostCard = (props) => {
                                 props.currentUser.email === post.ownerEmail ?
                                     <div className='text-end p-3'>
                                         <button className='btn btn-warning' value={post._id} onClick={editHandler}>
-                                            {constants.edit}<BiEdit className='ms-2 mb-0 h5 icons' />
+                                            {constants.edit}
                                         </button>
                                         <button className='btn btn-danger ms-2' value={post._id} onClick={props.deleteThePost}>
-                                            {constants.delete}<AiFillDelete className='ms-2 mb-0 h5 icons' />
+                                            {constants.delete}
                                         </button>
                                     </div>
                                     : null

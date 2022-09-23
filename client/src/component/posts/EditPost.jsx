@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import constants from '../../constants'
 import './Icon.css'
-import { BsCheckLg } from 'react-icons/bs'
 import putService from '../../services/putMethod'
 
 const EditPost = (props) => {
@@ -28,7 +27,7 @@ const EditPost = (props) => {
                     <textarea rows='4' type="text" className="form-control ms-3" ref={postBodyRef} defaultValue={props.body} name="body" placeholder={constants.body} />
                 </div>
                 <button className='btn ms-3 mb-4 text-light bg-success' value={props.id} onClick={saveValues}>
-                    {constants.edit_done} <BsCheckLg className='ms-1 pt-1 h5' />
+                    {constants.edit_done}
                 </button>
             </div>
         </div>

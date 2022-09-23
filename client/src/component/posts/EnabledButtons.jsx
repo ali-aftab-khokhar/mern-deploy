@@ -1,7 +1,5 @@
 import React from 'react'
 import constants from '../../constants'
-import { BiEdit } from 'react-icons/bi'
-import { AiFillDelete } from 'react-icons/ai'
 
 const EnabledButtons = (props) => {
     return (

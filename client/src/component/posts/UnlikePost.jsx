@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FcLikePlaceholder } from 'react-icons/fc'
+import constants from '../../constants'
 
 const UnlikePost = (props) => {
     const [count, setCount] = useState(props.count)
@@ -12,7 +12,7 @@ const UnlikePost = (props) => {
     return (
         <div>
             <button className='btn ms-3 btn-outline-danger pt-2' value={props.id} onClick={likeThePost}>
-                {count}<FcLikePlaceholder className='ms-2 mt-1 h5 icons' />
+                {count} {constants.unlike}
             </button>
         </div>
     )
