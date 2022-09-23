@@ -50,7 +50,7 @@ const Comment = () => {
     }
 
     const goBackHandler = () => {
-        navigate(-1)
+        navigate('/posts')
     }
 
     return (
