@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike } = require('../controllers/postController')
 
-app.route('/posts')
+app.route('/api/posts')
 .get(getAllPosts)
 .post(addNewPost)
 

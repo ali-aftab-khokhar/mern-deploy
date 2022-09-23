@@ -37,7 +37,7 @@ const constants = {
     loginFirst: 'Login first to check comments',
     like: 'Like',
     unlike: 'Unlike',
-    likes: 'Like',
+    likes: 'Like(s)',
 }
 
 export default constants

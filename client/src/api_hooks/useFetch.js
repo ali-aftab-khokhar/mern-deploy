@@ -5,11 +5,10 @@ import constants from "../constants";
 
 const useFetch = (url) => {
     const [data, setData] = useState(null);
-    console.log(`/api/${url}`)
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get(`/${url}`)
+            await axios.get(`/api/${url}`)
                 .then((response) => {
                     setData(response.data)
                 })
