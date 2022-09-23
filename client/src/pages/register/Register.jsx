@@ -32,7 +32,7 @@ const Register = () => {
         <div>
             <Header header={constants.app_title} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className='form-group'>
                         <label>{constants.name}</label>
                         <input type='text' className='form-control mt-2' placeholder={constants.enter_you_name} ref={nameRef} />
@@ -50,7 +50,7 @@ const Register = () => {
                         <input type='password' className='form-control mt-2' placeholder={constants.re_enter_your_password} ref={confirmPasswordRef} />
                     </div>
                     <div>
-                        <button onClick={onSubmit} className='btn btn-outline-dark mt-4'>{constants.register}</button>
+                        <button type='submit' className='btn btn-outline-dark mt-4'>{constants.register}</button>
                     </div>
                     <div>
                         <button onClick={toLoginPage} className="btn btn-dark mt-3">{constants.already_exist}</button>

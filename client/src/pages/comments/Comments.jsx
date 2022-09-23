@@ -20,6 +20,10 @@ const Comment = () => {
     const [editToggle, setEditToggle] = useState(false)
     const [activeCommentId, setActiveCommentId] = useState("")
 
+    if (!context.auth){
+        navigate('/')
+    }
+
     const addNewComment = (body, email) => {
         const payload = {
             commentBody: body,
