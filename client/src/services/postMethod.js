@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import constants from "../constants";
 
 const postService = async (payload, success, url = '') => {
-    await axios.post(`/${url}`, payload)
+    await axios.post(`/api/${url}`, payload)
     .then((res) => {
         if (res.status === 200) {
             toast.success(success)

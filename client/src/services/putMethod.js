@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import constants from "../constants";
 
 const putService = (payload, success, url) => {
-    axios.put(`/${url}`, payload)
+    axios.put(`/api/${url}`, payload)
     .then((res) => {
         if (res.status === 200) {
             toast.success(success)

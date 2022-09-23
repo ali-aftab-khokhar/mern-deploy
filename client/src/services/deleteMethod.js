@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 const deleteService = (url) => {
-    axios.delete(`/${url}`)
+    axios.delete(`/api/${url}`)
         .then((res) => {
             if (res.status === 200) {
                 toast.success('Deleted')

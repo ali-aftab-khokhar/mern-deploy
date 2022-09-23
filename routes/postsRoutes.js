@@ -6,14 +6,14 @@ app.route('/api/posts')
 .get(getAllPosts)
 .post(addNewPost)
 
-app.route('/posts/:id')
+app.route('/api/posts/:id')
 .delete(deleteThePost)
 .put(editThePost)
 
-app.put('/post/lod/:id', likeAndDislike)
+app.put('/api/post/lod/:id', likeAndDislike)
 
-app.get('/post/:id/comments', getOnePost)
+app.get('/api/post/:id/comments', getOnePost)
 
-app.get('/profile/:id', getProfile)
+app.get('/api/profile/:id', getProfile)
 
 module.exports = app
