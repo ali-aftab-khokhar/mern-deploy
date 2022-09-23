@@ -13,6 +13,10 @@ const Profile = () => {
     const [status, forceUpdate] = useState(false)
     const [myPosts] = useFetch(`profile/${context.isLoggedIn.id}`)
 
+    if (!context.auth()) {
+        navigate('/')
+    }
+
     useEffect(() => { }, [myPosts, status])
 
     const goBackHandler = () => {
