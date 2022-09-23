@@ -54,7 +54,6 @@ const Post = () => {
     return (
         <div>
             <Header header={constants.posts} profile={constants.my_profile}/>
-            ajsjkadksaks
             <div>
                 {
                     isLoggedIn.email ?
