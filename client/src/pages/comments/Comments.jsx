@@ -21,6 +21,7 @@ const Comment = () => {
     const [activeCommentId, setActiveCommentId] = useState("")
 
     useEffect(() => {
+        console.log(context)
         if (!context.auth) {
             navigate('/')
         }
