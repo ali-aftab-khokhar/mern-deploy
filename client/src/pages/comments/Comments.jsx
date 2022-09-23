@@ -21,10 +21,9 @@ const Comment = () => {
     const [activeCommentId, setActiveCommentId] = useState("")
 
     useEffect(() => {
-        if (!context.auth) {
+        if (!context.auth()) {
             navigate('/')
         }
-        console.log(!context.auth())
     }, [])
 
     const addNewComment = (body, email) => {
