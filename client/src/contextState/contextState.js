@@ -20,12 +20,20 @@ const ContextState = (props) => {
         })
     }
 
+    const auth = () => {
+        if (isLoggedIn.email && isLoggedIn.name && isLoggedIn.id){
+            return true
+        } else {
+            return false
+        }
+    }
+
     useEffect(() => {
         setIsLoggedIn(isLoggedIn)
     }, [isLoggedIn])
 
     return (
-        <contextAPI.Provider value={{ isLoggedIn, login, logout }}>
+        <contextAPI.Provider value={{ isLoggedIn, login, logout, auth }}>
             {props.children}
         </contextAPI.Provider>
     )

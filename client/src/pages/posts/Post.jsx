@@ -12,9 +12,14 @@ import deleteService from '../../services/deleteMethod'
 
 const Post = () => {
     const [data, refetchData] = useFetch('posts')
+    console.log(data)
     const context = useContext(contextAPI)
     const [isLoggedIn] = useState(context.isLoggedIn)
     const navigate = useNavigate()
+
+    // if (!context.auth){
+    //     navigate('/')
+    // }
 
     const logoutHandle = () => {
         context.logout()

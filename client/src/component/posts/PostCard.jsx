@@ -40,7 +40,9 @@ const PostCard = (props) => {
             email: context.isLoggedIn.email,
             todo: 'dislike'
         }
-        putService(payload, 'Disliked', `post/lod/${id}`)
+        if (id && payload.email) {
+            putService(payload, 'Disliked', `post/lod/${id}`)
+        }
     }
 
     const likeThePost = (id) => {
@@ -49,7 +51,9 @@ const PostCard = (props) => {
             email: context.isLoggedIn.email,
             todo: 'like'
         }
-        putService(payload, 'Liked', `post/lod/${id}`)
+        if (id && payload.email) {
+            putService(payload, 'Liked', `post/lod/${id}`)
+        }
     }
 
     return (
