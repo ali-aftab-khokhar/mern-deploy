@@ -7,9 +7,7 @@ const userRoute = require('./routes/userRoutes')
 const postRoute = require('./routes/postsRoutes')
 const commentRoute = require('./routes/commentRoutes')
 
-const PORT = process.env.PORT || 3001
-// const ORIGIN = process.env.ORIGIN || 'https://mern-app-by-ak.herokuapp.com/'
-// const ORIGIN = 'https://mern-app-by-ak.herokuapp.com/'
+const PORT = process.env.PORT || 5000
 const ORIGIN = process.env.NODE_ENV === 'production' ? 'http://localhost:5000/' : 'https://mern-app-by-ak.herokuapp.com/' ;
 
 //Connection established between MongoDB and Script.js using Mongoose
