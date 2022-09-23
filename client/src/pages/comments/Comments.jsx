@@ -22,10 +22,10 @@ const Comment = () => {
 
     useEffect(() => {
         console.log(context)
-        console.log(context)
         if (!context.auth) {
             navigate('/')
         }
+        console.log(context.auth())
     }, [])
 
     const addNewComment = (body, email) => {
