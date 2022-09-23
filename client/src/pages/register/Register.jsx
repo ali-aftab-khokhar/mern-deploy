@@ -35,19 +35,19 @@ const Register = () => {
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
                         <label>{constants.name}</label>
-                        <input type='text' className='form-control mt-2' placeholder={constants.enter_you_name} ref={nameRef} />
+                        <input type='text' className='form-control mt-2' placeholder={constants.enter_you_name} ref={nameRef} required />
                     </div>
                     <div className='form-group mt-4'>
                         <label>{constants.email}</label>
-                        <input type='email' className='form-control mt-2' placeholder={constants.enter_an_email} ref={emailRef} />
+                        <input type='email' className='form-control mt-2' placeholder={constants.enter_an_email} ref={emailRef} required />
                     </div>
                     <div className='form-group mt-4'>
                         <label>{constants.password}</label>
-                        <input type='password' className='form-control mt-2' placeholder={constants.enter_password} ref={passwordRef} />
+                        <input type='password' className='form-control mt-2' placeholder={constants.enter_password} ref={passwordRef} required />
                     </div>
                     <div className='form-group mt-4'>
                         <label>{constants.confirm_password}</label>
-                        <input type='password' className='form-control mt-2' placeholder={constants.re_enter_your_password} ref={confirmPasswordRef} />
+                        <input type='password' className='form-control mt-2' placeholder={constants.re_enter_your_password} ref={confirmPasswordRef} required />
                     </div>
                     <div>
                         <input type='submit' value={constants.register} className='btn btn-outline-dark mt-4' />
