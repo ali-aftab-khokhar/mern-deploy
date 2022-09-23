@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import constants from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
@@ -20,9 +20,11 @@ const Comment = () => {
     const [editToggle, setEditToggle] = useState(false)
     const [activeCommentId, setActiveCommentId] = useState("")
 
-    if (!context.auth){
-        navigate('/')
-    }
+    useEffect(() => {
+        if (!context.auth) {
+            navigate('/')
+        }
+    }, [])
 
     const addNewComment = (body, email) => {
         const payload = {
