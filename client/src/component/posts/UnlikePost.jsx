@@ -10,9 +10,12 @@ const UnlikePost = (props) => {
     }
 
     return (
-        <div>
+        <div className='d-flex'>
+            <button className='btn ms-3 btn-outline-danger pt-2'>
+                {count} {constants.likes}
+            </button>
             <button className='btn ms-3 btn-outline-danger pt-2' value={props.id} onClick={likeThePost}>
-                {count} {constants.unlike}
+                {constants.unlike}
             </button>
         </div>
     )
