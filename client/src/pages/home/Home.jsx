@@ -22,7 +22,7 @@ const Home = () => {
             email: emailRef.current.value,
             password: passwordRef.current.value
         }
-        axios.post(``, payload)
+        axios.post(`/api/`, payload)
             .then((res) => {
                 if (res.status === 200) {
                     context.login(res.data.name, res.data.email, res.data._id)
