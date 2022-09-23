@@ -12,6 +12,8 @@ const Home = () => {
     const navigate = useNavigate()
     const context = useContext(contextAPI)
 
+    context.logout()
+
     const toCreateAnAccount = () => {
         navigate('/register')
     }
@@ -49,7 +51,7 @@ const Home = () => {
                         <input type='password' className='form-control mt-2' placeholder={constants.enter_password} ref={passwordRef} />
                     </div>
                     <div>
-                        <button type='submit' className='btn btn-outline-dark mt-4'>{constants.login}</button>
+                        <input type='submit' value={constants.login} className='btn btn-outline-dark mt-4' />
                     </div>
                     <div>
                         <button onClick={toCreateAnAccount} className="btn btn-dark mt-3">{constants.create_an_account}</button>

@@ -50,7 +50,7 @@ const Register = () => {
                         <input type='password' className='form-control mt-2' placeholder={constants.re_enter_your_password} ref={confirmPasswordRef} />
                     </div>
                     <div>
-                        <button type='submit' className='btn btn-outline-dark mt-4'>{constants.register}</button>
+                        <input type='submit' value={constants.register} className='btn btn-outline-dark mt-4' />
                     </div>
                     <div>
                         <button onClick={toLoginPage} className="btn btn-dark mt-3">{constants.already_exist}</button>
