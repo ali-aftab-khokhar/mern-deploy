@@ -12,8 +12,6 @@ const Home = () => {
     const navigate = useNavigate()
     const context = useContext(contextAPI)
 
-    context.logout()
-
     const toCreateAnAccount = () => {
         navigate('/register')
     }
