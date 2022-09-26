@@ -1,13 +1,12 @@
 const express = require('express')
 const app = express();
-const protect = require('../middleware/authMiddleware')
 const { getAllComments, addNewComment, deleteTheComment, editTheComment } = require('../controllers/commentController')
 
-app.route('/api/:id/comments', protect)
+app.route('/api/:id/comments')
 .get(getAllComments)
 .post(addNewComment)
 
-app.route('/api/comment/:id', protect)
+app.route('/api/comment/:id')
 .delete(deleteTheComment)
 .put(editTheComment)
 
