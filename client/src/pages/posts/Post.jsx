@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import Header from '../../component/Header/Header'
 import useFetch from '../../api_hooks/useFetch'
@@ -48,15 +48,15 @@ const Post = () => {
 
     return (
         <div>
-            <Header header={constants.posts} profile={constants.my_profile}/>
+            <Header header={CONSTANTS.POSTS} profile={CONSTANTS.MY_PROFILE}/>
             <div>
                 {
                     isLoggedIn.email ?
                         <div>
-                            <button className='btn btn-dark ms-5 mt-5' onClick={logoutHandle}>{constants.logout}</button>
+                            <button className='btn btn-dark ms-5 mt-5' onClick={logoutHandle}>{CONSTANTS.LOGOUT}</button>
                             <AddNewPost publishPost={publishPost} />
                         </div>
-                        : <button className='btn btn-dark ms-5 mt-5' onClick={loginHandle}>{constants.login}</button>
+                        : <button className='btn btn-dark ms-5 mt-5' onClick={loginHandle}>{CONSTANTS.LOGIN}</button>
                 }
             </div>
 

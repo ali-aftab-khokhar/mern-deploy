@@ -1,25 +1,24 @@
 const mongoose = require('mongoose')
-const Posts = require('./postSchema')
 const validator = require('validator')
-const constants = require('../constants')
+const CONSTANTS = require('../constants')
 const type = require('../dataType')
 
 const userSchema = new mongoose.Schema({
     name: {
         type: type.string,
-        required: [true, constants.enter_name]
+        required: [true, CONSTANTS.ENTER_NAME]
     },
     email: {
         type: type.string,
-        required: [true, constants.enter_email],
+        required: [true, CONSTANTS.ENTER_EMAIL],
         unique: true,
         validator: validator.isEmail
     },
     password: {
         type: type.string,
-        required: [true, constants.enter_password]
+        required: [true, CONSTANTS.ENTER_PASSWORD]
     },
 })
 
-const Users = mongoose.model(constants.users, userSchema)
+const Users = mongoose.model(CONSTANTS.USERS_SCHEMA, userSchema)
 module.exports = Users

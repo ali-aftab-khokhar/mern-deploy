@@ -1,12 +1,10 @@
 const Post = require('../schema/postSchema')
-const express = require('express')
-const app = express();
-const constants = require('../constants');
+const CONSTANTS = require('../constants');
 const User = require('../schema/userSchema');
 
 const getPostsService = async (res) => {
     try {
-        await Post.find({}, function (err, doc) {
+        Post.find({}, function (err, doc) {
             if (!err) {
                 res.status(200)
                 res.json(doc)
@@ -27,14 +25,8 @@ const addNewPostService = async (ownerName, ownerEmail, title, body, likes, res)
             likes: likes
         })
         await postDetails.save()
-        Post.find({ ownerEmail: ownerEmail, ownerName: ownerName, title: title, likes: likes, body: body }, function(err, doc) {
-            if (!err){
-                res.status(200)
-                res.json(doc)
-            }
-        })
     } catch {
-        res.status(400).send(constants.publish_new_post_failed)
+        res.status(400).send(CONSTANTS.PUBLISH_NEW_POST_FAILED)
     }
 }
 
@@ -42,7 +34,7 @@ const deletePostService = async (id, res) => {
     try {
         await Post.findByIdAndDelete(id)
     } catch {
-        res.status(400).send(constants.deletion_failed)
+        res.status(400).send(CONSTANTS.DELETION_FAILED)
     }
 }
 
@@ -53,7 +45,7 @@ const editPostService = async (id, title, body, res) => {
             body: body
         })
     } catch {
-        res.status(400).send(constants.edit_failed)
+        res.status(400).send(CONSTANTS.EDIT_FAILED)
     }
 }
 
@@ -66,13 +58,13 @@ const getOnePostService = async (req, res) => {
             }
         })
     } catch {
-        res.status(400).send(constants.cant_get_individual_post)
+        res.status(400).send(CONSTANTS.CANT_GET_INDIVIDUAL_POST)
     }
 }
 
 const getProfileDataService = async (id, res) => {
     try {
-        await User.findOne({ _id: id }, function (err, doc) {
+        User.findOne({ _id: id }, function (err, doc) {
             if (!err) {
                 Post.find({ ownerEmail: doc.email }, function (p_err, p_doc) {
                     if (!p_err) {
@@ -89,9 +81,9 @@ const getProfileDataService = async (id, res) => {
 
 const likeAndDislikeService = async (req, res) => {
     try {
-        if (req.body.todo === constants.dislike) {
+        if (req.body.todo === CONSTANTS.DISLIKE) {
             dislikeService(req, res)
-        } else if (req.body.todo === constants.like) {
+        } else if (req.body.todo === CONSTANTS.LIKE) {
             likeService(req, res)
         }
     } catch {
@@ -106,12 +98,12 @@ const dislikeService = (req, res) => {
             { "new": true, "upsert": true },
             function (err, doc) {
                 if (!err) {
-                    res.status(200).send(constants.disliked)
+                    res.status(200).send(CONSTANTS.DISLIKED)
                 }
             }
         );
     } catch {
-        res.status(400).send(constants.like_dislike_failed)
+        res.status(400).send(CONSTANTS.LIKE_DISLIKE_FAILED)
     }
 }
 
@@ -122,12 +114,12 @@ const likeService = async (req, res) => {
             { "new": true, "upsert": true },
             function (err, doc) {
                 if (!err) {
-                    res.status(200).send(constants.liked)
+                    res.status(200).send(CONSTANTS.LIKED)
                 }
             }
         );
     } catch {
-        res.status(400).send(constants.like_dislike_failed)
+        res.status(400).send(CONSTANTS.LIKE_DISLIKE_FAILED)
     }
 }
 

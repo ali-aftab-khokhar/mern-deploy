@@ -1,19 +1,19 @@
 const express = require('express')
-const app = express();
+const router = express();
 const { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike } = require('../controllers/postController')
 
-app.route('/api/posts')
+router.route('/posts')
 .get(getAllPosts)
 .post(addNewPost)
 
-app.route('/api/posts/:id')
+router.route('/posts/:id')
 .delete(deleteThePost)
 .put(editThePost)
 
-app.put('/api/post/lod/:id', likeAndDislike)
+router.put('/post/lod/:id', likeAndDislike)
 
-app.get('/api/post/:id/comments', getOnePost)
+router.get('/post/:id/comments', getOnePost)
 
-app.get('/api/profile/:id', getProfile)
+router.get('/profile/:id', getProfile)
 
-module.exports = app
+module.exports = router

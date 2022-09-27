@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 
 const AddNewComment = (props) => {
@@ -14,9 +14,9 @@ const AddNewComment = (props) => {
     return (
         <div className='mb-4 w-75 ms-4 mb-3'>
                         <div className="input-group">
-                            <input type="text" className="form-control" ref={commentRef} placeholder={constants.add_new_comment} />
+                            <input type="text" className="form-control" ref={commentRef} placeholder={CONSTANTS.ADD_NEW_COMMENT} />
                             <div className="input-group-prepend">
-                                <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>{constants.publish_the_comment}</button>
+                                <button className="input-group-text" id="inputGroupPrepend2" onClick={addNewComment}>{CONSTANTS.PUBLISH_THE_COMMENT}</button>
                             </div>
                         </div>
                     </div>

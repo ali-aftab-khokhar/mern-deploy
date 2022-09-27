@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import EditPost from './EditPost'
-import { FaComments } from 'react-icons/fa'
-import { BiEdit } from 'react-icons/bi'
-import { AiFillDelete } from 'react-icons/ai'
 import './Icon.css'
 import { useNavigate } from 'react-router-dom'
 import ContextAPI from '../../contextState/contextAPI'
@@ -71,7 +68,7 @@ const PostCard = (props) => {
                                     context.isLoggedIn.email ?
                                         <div className='d-flex'>
                                             <button className="btn btn-dark" value={post._id} onClick={openComments}>
-                                                {constants.comments}
+                                                {CONSTANTS.COMMENTS}
                                             </button>
                                             <div>
                                                 {
@@ -83,7 +80,7 @@ const PostCard = (props) => {
                                         </div>
                                         : <div>
                                             <button className="btn btn-dark" value={post._id} onClick={loginFirst}>
-                                                {constants.loginFirst}
+                                                {CONSTANTS.LOGIN_FIRST}
                                             </button>
                                         </div>
                                 }
@@ -93,10 +90,10 @@ const PostCard = (props) => {
                                 props.currentUser.email === post.ownerEmail ?
                                     <div className='text-end p-3'>
                                         <button className='btn btn-warning' value={post._id} onClick={editHandler}>
-                                            {constants.edit}
+                                            {CONSTANTS.EDIT}
                                         </button>
                                         <button className='btn btn-danger ms-2' value={post._id} onClick={props.deleteThePost}>
-                                            {constants.delete}
+                                            {CONSTANTS.DELETE}
                                         </button>
                                     </div>
                                     : null
@@ -109,7 +106,7 @@ const PostCard = (props) => {
                             }
                         </div>
                     )
-                }) : <div>{constants.loading}</div>
+                }) : <div>{CONSTANTS.LOADING}</div>
             }
         </div>
     )

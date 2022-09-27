@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import Header from '../../component/Header/Header'
 import postService from '../../services/postMethod'
 
@@ -11,7 +11,7 @@ const Register = () => {
     const nameRef = useRef(null)
     const navigate = useNavigate()
 
-    const toLoginPage = () => {
+    const navigateToLogin = () => {
         navigate('/')
     }
 
@@ -30,30 +30,30 @@ const Register = () => {
 
     return (
         <div>
-            <Header header={constants.app_title} />
+            <Header header={CONSTANTS.APP_TITLE} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
-                        <label>{constants.name}</label>
-                        <input type='text' className='form-control mt-2' placeholder={constants.enter_you_name} ref={nameRef} required />
+                        <label>{CONSTANTS.NAME}</label>
+                        <input type='text' className='form-control mt-2' placeholder={CONSTANTS.ENTER_YOUR_NAME} ref={nameRef} required />
                     </div>
                     <div className='form-group mt-4'>
-                        <label>{constants.email}</label>
-                        <input type='email' className='form-control mt-2' placeholder={constants.enter_an_email} ref={emailRef} required />
+                        <label>{CONSTANTS.EMAIL}</label>
+                        <input type='email' className='form-control mt-2' placeholder={CONSTANTS.ENTER_AN_EMAIL} ref={emailRef} required />
                     </div>
                     <div className='form-group mt-4'>
-                        <label>{constants.password}</label>
-                        <input type='password' className='form-control mt-2' placeholder={constants.enter_password} ref={passwordRef} required />
+                        <label>{CONSTANTS.PASSWORD}</label>
+                        <input type='password' className='form-control mt-2' placeholder={CONSTANTS.ENTER_PASSWORD} ref={passwordRef} required />
                     </div>
                     <div className='form-group mt-4'>
-                        <label>{constants.confirm_password}</label>
-                        <input type='password' className='form-control mt-2' placeholder={constants.re_enter_your_password} ref={confirmPasswordRef} required />
+                        <label>{CONSTANTS.CONFIRM_PASSWORD}</label>
+                        <input type='password' className='form-control mt-2' placeholder={CONSTANTS.RE_ENTER_YOUR_PASSWORD} ref={confirmPasswordRef} required />
                     </div>
                     <div>
-                        <input type='submit' value={constants.register} className='btn btn-outline-dark mt-4' />
+                        <input type='submit' value={CONSTANTS.REGISTER} className='btn btn-outline-dark mt-4' />
                     </div>
                     <div>
-                        <button onClick={toLoginPage} className="btn btn-dark mt-3">{constants.already_exist}</button>
+                        <button onClick={navigateToLogin} className="btn btn-dark mt-3">{CONSTANTS.ALREADY_EXISTS}</button>
                     </div>
                 </form>
             </div>

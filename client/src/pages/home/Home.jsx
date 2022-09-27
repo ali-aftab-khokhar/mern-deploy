@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import Header from '../../component/Header/Header'
 import axios from 'axios'
 import contextAPI from '../../contextState/contextAPI'
@@ -12,7 +12,7 @@ const Home = () => {
     const navigate = useNavigate()
     const context = useContext(contextAPI)
 
-    const toCreateAnAccount = () => {
+    const navigateToRegister = () => {
         navigate('/register')
     }
 
@@ -37,22 +37,22 @@ const Home = () => {
 
     return (
         <div>
-            <Header header={constants.app_title} />
+            <Header header={CONSTANTS.APP_TITLE} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
-                        <label>{constants.email}</label>
-                        <input type='email' className='form-control mt-2' placeholder={constants.enter_an_email} ref={emailRef} required />
+                        <label>{CONSTANTS.EMAIL}</label>
+                        <input type='email' className='form-control mt-2' placeholder={CONSTANTS.ENTER_AN_EMAIL} ref={emailRef} required />
                     </div>
                     <div className='form-group mt-4'>
-                        <label>{constants.password}</label>
-                        <input type='password' className='form-control mt-2' placeholder={constants.enter_password} ref={passwordRef} required />
+                        <label>{CONSTANTS.PASSWORD}</label>
+                        <input type='password' className='form-control mt-2' placeholder={CONSTANTS.ENTER_PASSWORD} ref={passwordRef} required />
                     </div>
                     <div>
-                        <input type='submit' value={constants.login} className='btn btn-outline-dark mt-4' />
+                        <input type='submit' value={CONSTANTS.LOGIN} className='btn btn-outline-dark mt-4' />
                     </div>
                     <div>
-                        <button onClick={toCreateAnAccount} className="btn btn-dark mt-3">{constants.create_an_account}</button>
+                        <button onClick={navigateToRegister} className="btn btn-dark mt-3">{CONSTANTS.CREATE_AN_ACCOUNT}</button>
                     </div>
                 </form>
             </div>

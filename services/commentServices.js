@@ -1,12 +1,10 @@
-const express = require('express')
-const app = express();
 const Comment = require('../schema/commentSchema')
 const User = require('../schema/userSchema')
-const constants = require('../constants')
+const CONSTANTS = require('../constants')
 
 const getCommentsService = async (id, res) => {
     try {
-        await Comment.find({ commentOn: id }, function (err, doc) {
+        Comment.find({ commentOn: id }, function (err, doc) {
             if (!err) {
                 res.status(200)
                 res.json(doc)
@@ -22,7 +20,7 @@ const addCommentService = async (payload, res) => {
     try {
         User.find({ email: payload.commentBy }, function (err, doc) {
             if (err) {
-                res.status(400).send(constants.something_went_wrong)
+                res.status(400).send(CONSTANTS.SOMETHING_WENT_WRONG)
             }
             const commentDetails = new Comment({
                 commentBody: payload.commentBody,
@@ -33,7 +31,7 @@ const addCommentService = async (payload, res) => {
             commentDetails.save()
         })
     } catch {
-        res.status(400).send(constants.publish_new_post_failed)
+        res.status(400).send(CONSTANTS.PUBLISH_NEW_POST_FAILED)
     }
 }
 
@@ -41,7 +39,7 @@ const deleteCommentService = async (id, res) => {
     try {
         await Comment.findByIdAndDelete(id)
     } catch {
-        res.status(400).send(constants.deletion_failed)
+        res.status(400).send(CONSTANTS.DELETION_FAILED)
     }
 }
 
@@ -51,7 +49,7 @@ const editCommentService = async (id, body, res) => {
             commentBody: body
         })
     } catch {
-        res.status(400).send(constants.edit_failed)
+        res.status(400).send(CONSTANTS.EDIT_FAILED)
     }
 }
 

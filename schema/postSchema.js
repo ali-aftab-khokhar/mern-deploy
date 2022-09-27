@@ -1,21 +1,20 @@
 const mongoose = require('mongoose')
-const Users = require('./userSchema')
-const constants = require('../constants')
+const CONSTANTS = require('../constants')
 const type = require('../dataType')
 
 const postSchema = new mongoose.Schema({
     ownerName: type.string,
     title: {
         type: String,
-        required: [true, constants.enter_title]
+        required: [true, CONSTANTS.ENTER_TITLE]
     },
     body: {
         type: type.string,
-        required: [true, constants.enter_body]
+        required: [true, CONSTANTS.ENTER_BODY]
     },
     ownerEmail: type.string,
     likes: [type.string]
 })
 
-const Posts = mongoose.model(constants.posts, postSchema)
+const Posts = mongoose.model(CONSTANTS.POSTS_SCHEMA, postSchema)
 module.exports = Posts

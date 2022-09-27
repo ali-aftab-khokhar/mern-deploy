@@ -1,13 +1,13 @@
 const express = require('express')
-const app = express();
+const router = express();
 const { getAllComments, addNewComment, deleteTheComment, editTheComment } = require('../controllers/commentController')
 
-app.route('/api/:id/comments')
+router.route('/:id/comments')
 .get(getAllComments)
 .post(addNewComment)
 
-app.route('/api/comment/:id')
+router.route('/comment/:id')
 .delete(deleteTheComment)
 .put(editTheComment)
 
-module.exports = app
+module.exports = router

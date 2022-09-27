@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import putService from '../../services/putMethod'
 
 const EditComment = (props) => {
@@ -17,9 +17,9 @@ const saveEdits = (e) => {
     return (
         <div className='mb-4 w-100 ms-4 mb-3 mt-3'>
             <div className="input-group">
-                <input type="text" className="form-control" ref={commentRef} placeholder={constants.add_new_comment} defaultValue={props.commentBody} />
+                <input type="text" className="form-control" ref={commentRef} placeholder={CONSTANTS.ADD_NEW_COMMENT} defaultValue={props.commentBody} />
                 <div className="input-group-prepend">
-                    <button className="input-group-text" id="inputGroupPrepend2" value={props.id} onClick={saveEdits}>{constants.edit_done}</button>
+                    <button className="input-group-text" id="inputGroupPrepend2" value={props.id} onClick={saveEdits}>{CONSTANTS.EDIT_DONE}</button>
                 </div>
             </div>
         </div>

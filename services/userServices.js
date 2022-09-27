@@ -1,40 +1,38 @@
-const express = require('express')
-const app = express();
 const User = require('../schema/userSchema')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const constants = require('../constants')
+const CONSTANTS = require('../constants')
 
 const loginService = async (req, res) => {
     try {
         const { email, password } = req.body
-        const isExists = await existsOrNot(email)
-        if (isExists && (await bcrypt.compare(password, isExists.password))) {
+        const existingUser = await existsOrNot(email)
+        if (existingUser && (await bcrypt.compare(password, existingUser.password))) {
             res.status(200)
             res.json({
-                _id: isExists.id,
-                name: isExists.name,
-                email: isExists.email,
-                token: generateToken(isExists._id),
+                _id: existingUser.id,
+                name: existingUser.name,
+                email: existingUser.email,
+                token: generateToken(existingUser._id),
             })
         }
         else {
             res.status(400)
-            throw new Error(constants.incorrect_email_or_password)
+            throw new Error(CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD)
         }
     } catch {
         res.status(400)
-        throw new Error(constants.invalid_user_data)
+        throw new Error(CONSTANTS.INVALID_USER_DATA)
     }
 }
 
 const registerService = async (req, res) => {
     try {
         const { name, email, password } = req.body
-        const isExists = await existsOrNot(email)
-        if (isExists) {
+        const existingUser = await existsOrNot(email)
+        if (existingUser) {
             res.status(400)
-            throw new Error(constants.user_already_exists)
+            throw new Error(CONSTANTS.USER_ALREADY_EXISTS)
         }
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
@@ -52,11 +50,11 @@ const registerService = async (req, res) => {
             })
         } else {
             res.status(400)
-            throw new Error(constants.invalid_user_data)
+            throw new Error(CONSTANTS.INVALID_USER_DATA)
         }
     } catch {
         res.status(400)
-        throw new Error(constants.invalid_user_data)
+        throw new Error(CONSTANTS.INVALID_USER_DATA)
     }
 }
 
@@ -70,7 +68,7 @@ const existsOrNot = async (email) => {
         }
     } catch {
         res.status(400)
-        throw new Error(constants.invalid_user_data)
+        throw new Error(CONSTANTS.INVALID_USER_DATA)
     }
 }
 

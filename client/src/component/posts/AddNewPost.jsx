@@ -1,8 +1,5 @@
 import React, { useRef, useState } from 'react'
-import constants from '../../constants'
-import { ImCancelCircle } from 'react-icons/im'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import CONSTANTS from '../../constants'
 
 const AddNewPost = (props) => {
     const [addNewPost, setAddNewPost] = useState(false)
@@ -25,10 +22,10 @@ const AddNewPost = (props) => {
                 {
                     !addNewPost ?
                         <div className='d-flex pt-1'>
-                            <p>{constants.create_new_post}</p> <AiOutlinePlus className='ms-2 mt-0 h4 icons' />
+                            <p>{CONSTANTS.CREATE_NEW_POST}</p>
                         </div>
                         : <div className='d-flex pt-1'>
-                            <p>{constants.close_the_dialog}</p> <ImCancelCircle className='ms-2 mt-0 h4 icons' />
+                            <p>{CONSTANTS.CLOSE_THE_DIALOG}</p>
                         </div>
                 }
             </button>
@@ -36,15 +33,15 @@ const AddNewPost = (props) => {
             {
                 addNewPost ?
                     <div className='w-75 justify-content-center align-items-center ms-5 mt-5'>
-                        <div className='mb-3 ms-3 font-weight-bold'>{constants.new_post}</div>
+                        <div className='mb-3 ms-3 font-weight-bold'>{CONSTANTS.NEW_POST}</div>
                         <div className="form-group mb-4">
-                            <input type="text" className="form-control ms-3" ref={postTitleRef} name="title" placeholder={constants.title} />
+                            <input type="text" className="form-control ms-3" ref={postTitleRef} name="title" placeholder={CONSTANTS.TITLE} />
                         </div>
                         <div className="form-group mb-4">
-                            <textarea rows='4' type="text" className="form-control ms-3" ref={postBodyRef} name="body" placeholder={constants.body} />
+                            <textarea rows='4' type="text" className="form-control ms-3" ref={postBodyRef} name="body" placeholder={CONSTANTS.BODY} />
                         </div>
                         <button className='btn ms-3 btn-outline-dark' onClick={publishPost} >
-                            {constants.publish_the_post} <AiOutlineArrowRight className='ms-0 mb-0 h5 icons' />
+                            {CONSTANTS.PUBLISH_THE_POST}
                         </button>
                     </div>
                     : null

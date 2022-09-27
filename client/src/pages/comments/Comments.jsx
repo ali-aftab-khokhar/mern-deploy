@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import Header from '../../component/Header/Header'
 import useFetch from '../../api_hooks/useFetch'
@@ -8,7 +8,7 @@ import EditComment from '../../component/comment/EditComment'
 import AddNewComment from '../../component/comment/AddNewComment'
 import postService from '../../services/postMethod'
 import deleteService from '../../services/deleteMethod'
-import EnableButtons from '../../component/comment/EnableButtons'
+import EditDeleteButtons from '../../component/comment/EditDeleteButtons'
 
 const Comment = () => {
     const params = useParams()
@@ -55,19 +55,19 @@ const Comment = () => {
         refetchData()
     }
 
-    const goBackHandler = () => {
+    const navigateToPost = () => {
         navigate('/posts')
     }
 
     return (
         <div>
-            <Header header={constants.comments} />
+            <Header header={CONSTANTS.COMMENTS} />
             <div className='p-4'>
-                <button className='btn btn-dark' onClick={goBackHandler}>{constants.go_back}</button>
+                <button className='btn btn-dark' onClick={navigateToPost}>{CONSTANTS.GO_BACK}</button>
             </div>
             <div>
                 <div className="card m-5">
-                    <h1 className='p-3'>{constants.post}</h1>
+                    <h1 className='p-3'>{CONSTANTS.POST}</h1>
                     {
                         post ?
                             <div className="card-body pb-5">
@@ -75,12 +75,12 @@ const Comment = () => {
                                 <p className="card-text">{post[0].body}</p>
                             </div>
                             : <div>
-                                <h5>{constants.loading}</h5>
+                                <h5>{CONSTANTS.LOADING}</h5>
                             </div>
                     }
 
                     <div className='pb-5'>
-                        <h2 className='p-4'>{constants.comments}</h2>
+                        <h2 className='p-4'>{CONSTANTS.COMMENTS}</h2>
                         {
                             commentsData ? commentsData.map((comm) => {
                                 return (<div className='w-50 p-3 ms-3 b-2 mb-4' key={comm._id}>
@@ -96,7 +96,7 @@ const Comment = () => {
                                         {
                                             comm.commentBy === isLoggedIn.email ?
                                                 <div className='text-end p-2 d-flex'>
-                                                    <EnableButtons editHandler={editHandler} deleteHandler={deleteHandler} id={comm._id} />
+                                                    <EditDeleteButtons editHandler={editHandler} deleteHandler={deleteHandler} id={comm._id} />
                                                 </div>
                                                 : null
                                         }
@@ -107,7 +107,7 @@ const Comment = () => {
                                             : null
                                     }
                                 </div>)
-                            }) : <div className='ps-5'> {constants.loading} </div>
+                            }) : <div className='ps-5'> {CONSTANTS.LOADING} </div>
                         }
                     </div>
 

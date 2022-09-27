@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useFetch from '../../api_hooks/useFetch'
 import Header from '../../component/Header/Header'
-import constants from '../../constants'
+import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import PostCard from '../../component/posts/PostCard'
 import deleteService from '../../services/deleteMethod'
@@ -10,16 +10,13 @@ import deleteService from '../../services/deleteMethod'
 const Profile = () => {
     const context = useContext(contextAPI)
     const navigate = useNavigate()
-    const [status, forceUpdate] = useState(false)
     const [myPosts] = useFetch(`profile/${context.isLoggedIn.id}`)
 
     if (!context.auth()) {
         navigate('/')
     }
 
-    useEffect(() => { }, [myPosts, status])
-
-    const goBackHandler = () => {
+    const navigateToPost = () => {
         navigate('/posts')
     }
 
@@ -27,17 +24,13 @@ const Profile = () => {
         const id = e.target.value
         console.log(id)
         deleteService(`posts/${id}`)
-        const indexOfObject = myPosts.findIndex(obj => { return obj._id === id; });
-        myPosts.splice(indexOfObject, 1)
-        forceUpdate(!status)
-
     }
 
     return (
         <div>
             <Header header={context.isLoggedIn.name} profile={context.isLoggedIn.email} />
             <div className='p-4'>
-                <button className='btn btn-dark' onClick={goBackHandler}>{constants.posts}</button>
+                <button className='btn btn-dark' onClick={navigateToPost}>{CONSTANTS.POSTS}</button>
             </div>
             <div className='w-100 p-5 d-flex align-items-center justify-content-center'>
                 {
