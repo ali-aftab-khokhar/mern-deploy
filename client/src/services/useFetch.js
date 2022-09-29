@@ -10,6 +10,7 @@ const useFetch = (url) => {
         const fetchData = async () => {
             await axios.get(`/api/${url}`)
                 .then((response) => {
+                    console.log(response.data)
                     setData(response.data)
                 })
                 .catch(() => console.log(constants.API_Error), [])
