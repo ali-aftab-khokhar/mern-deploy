@@ -61,6 +61,40 @@ const DetailedPost = () => {
         navigate('/')
     }
 
+    const commentSection = () => {
+        return (<div className='pb-5'>
+        <h2 className='p-4'>{CONSTANTS.COMMENTS}</h2>
+        {
+            commentsData ? commentsData.map((comm) => {
+                return (<div className='w-50 p-3 ms-3 b-2 mb-4' key={comm._id}>
+                    <div className='d-flex'>
+                        <div className='w-75'>
+                            <div className='pt-1'>
+                                <h6>{comm.commentByName}</h6>
+                            </div>
+                            <div className='ps-3'>
+                                {comm.commentBody}
+                            </div>
+                        </div>
+                        {
+                            comm.commentBy === isLoggedIn.email ?
+                                <div className='text-end p-2 d-flex'>
+                                    <EditDeleteButtons editHandler={editHandler} deleteHandler={deleteHandler} id={comm._id} />
+                                </div>
+                                : null
+                        }
+                    </div>
+                    {
+                        editToggle && activeCommentId === comm._id ?
+                            <EditComment saveEdits={saveEdits} commentBody={comm.commentBody} id={comm._id} />
+                            : null
+                    }
+                </div>)
+            }) : <div className='ps-5'> {CONSTANTS.LOADING} </div>
+        }
+    </div>)
+    }
+
     return (
         <div>
             <Header header={CONSTANTS.COMMENTS} />
@@ -81,37 +115,9 @@ const DetailedPost = () => {
                             </div>
                     }
 
-                    <div className='pb-5'>
-                        <h2 className='p-4'>{CONSTANTS.COMMENTS}</h2>
-                        {
-                            commentsData ? commentsData.map((comm) => {
-                                return (<div className='w-50 p-3 ms-3 b-2 mb-4' key={comm._id}>
-                                    <div className='d-flex'>
-                                        <div className='w-75'>
-                                            <div className='pt-1'>
-                                                <h6>{comm.commentByName}</h6>
-                                            </div>
-                                            <div className='ps-3'>
-                                                {comm.commentBody}
-                                            </div>
-                                        </div>
-                                        {
-                                            comm.commentBy === isLoggedIn.email ?
-                                                <div className='text-end p-2 d-flex'>
-                                                    <EditDeleteButtons editHandler={editHandler} deleteHandler={deleteHandler} id={comm._id} />
-                                                </div>
-                                                : null
-                                        }
-                                    </div>
-                                    {
-                                        editToggle && activeCommentId === comm._id ?
-                                            <EditComment saveEdits={saveEdits} commentBody={comm.commentBody} id={comm._id} />
-                                            : null
-                                    }
-                                </div>)
-                            }) : <div className='ps-5'> {CONSTANTS.LOADING} </div>
-                        }
-                    </div>
+                    {
+                        commentSection
+                    }
 
                     {
                         isLoggedIn.email ?
