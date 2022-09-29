@@ -39,7 +39,7 @@ const deleteThePost = async (id, res) => {
     }
 }
 
-const editThePost = async (id, title, body, res) => {
+const editThePost = (id, title, body, res) => {
     try {
         await Post.findByIdAndUpdate(id, {
             title: title,
@@ -50,7 +50,7 @@ const editThePost = async (id, title, body, res) => {
     }
 }
 
-const getOnePost = async (req, res) => {
+const getOnePost = (req, res) => {
     try {
         Post.find({ _id: req.params.id }, function (err, doc) {
             if (!err) {
@@ -63,7 +63,7 @@ const getOnePost = async (req, res) => {
     }
 }
 
-const getProfile = async (id, res) => {
+const getProfile = (id, res) => {
     try {
         User.findOne({ _id: id }, function (err, doc) {
             if (!err) {
@@ -80,19 +80,19 @@ const getProfile = async (id, res) => {
     }
 }
 
-const likeAndDislike = async (req, res) => {
+const likeAndDislike = (req, res) => {
     try {
         if (req.body.todo === CONSTANTS.DISLIKE) {
-            dislikeService(req, res)
+            dislike(req, res)
         } else if (req.body.todo === CONSTANTS.LIKE) {
-            likeService(req, res)
+            like(req, res)
         }
     } catch {
         res.status(400)
     }
 }
 
-const dislike = async (req, res) => {
+const dislike = (req, res) => {
     try {
         Post.findByIdAndUpdate(req.body.id,
             { "$pull": { likes: req.body.email } },
@@ -108,7 +108,7 @@ const dislike = async (req, res) => {
     }
 }
 
-const like = async (req, res) => {
+const like = (req, res) => {
     try {
         Post.findByIdAndUpdate(req.body.id,
             { "$push": { likes: req.body.email } },
@@ -124,7 +124,7 @@ const like = async (req, res) => {
     }
 }
 
-const publishThePost = async (req, res) => {
+const publishThePost = (req, res) => {
     try {
         Post.updateOne({ _id: req.body.id },
             { "$set": { status: CONSTANTS.PUBLISHED } },
@@ -139,7 +139,7 @@ const publishThePost = async (req, res) => {
     }
 }
 
-const unpublishThePost = async (req, res) => {
+const unpublishThePost = (req, res) => {
     try {
         Post.updateOne({ _id: req.body.id },
             { "$set": { status: CONSTANTS.NOT_PUBLISHED } },

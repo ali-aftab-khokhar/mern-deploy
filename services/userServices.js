@@ -53,7 +53,6 @@ const register = async (req, res) => {
             expiresIn: new Date(Date.now() + 30000),
             httpOnly: true
         })
-        console.log(cookie)
         await user.save()
         if (user) {
             res.status(200).json({

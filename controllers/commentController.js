@@ -1,15 +1,15 @@
 const CONSTANTS = require('../constants')
 const CommentServices = require('../services/commentServices')
 
-const getAllComments = async (req, res) => {
+const getAllComments = (req, res) => {
     try {
-        await CommentServices.getAllComments(req.params.id, res)
+        CommentServices.getAllComments(req.params.id, res)
     } catch {
         res.status(400).send(CONSTANTS.COMMENTS_FETCH_FAILED)
     }
 }
 
-const addNewComment = async (req, res) => {
+const addNewComment = (req, res) => {
     try {
         const payload = {
             commentOn: req.params.id,
@@ -23,7 +23,7 @@ const addNewComment = async (req, res) => {
     }
 }
 
-const deleteTheComment = async (req, res) => {
+const deleteTheComment = (req, res) => {
     try {
         CommentServices.deleteTheComment(req.params.id, res)
         res.status(200).send(CONSTANTS.DELETED)
@@ -32,7 +32,7 @@ const deleteTheComment = async (req, res) => {
     }
 }
 
-const editTheComment = async (req, res) => {
+const editTheComment = (req, res) => {
     try {
         CommentServices.editTheComment(req.params.id, req.body.updatedComment, res)
         res.status(200).send(CONSTANTS.UPDATED)

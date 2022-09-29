@@ -1,9 +1,9 @@
 const CONSTANTS = require('../constants')
 const PostServices = require('../services/postServices')
 
-const getAllPosts = async (req, res) => {
+const getAllPosts = (req, res) => {
     try {
-        await PostServices.getAllPosts(res)
+        PostServices.getAllPosts(res)
     } catch {
         res.status(400).send(CONSTANTS.POST_FETCH_FAILED)
     }
