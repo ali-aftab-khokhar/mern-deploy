@@ -95,6 +95,19 @@ const DetailedPost = () => {
         </div>)
     }
 
+    const postInfo = () => {
+        return (
+            post ?
+                <div className="card-body pb-5">
+                    <h5 className="card-title">{post[0].title}</h5>
+                    <p className="card-text">{post[0].body}</p>
+                </div>
+                : <div>
+                    <h5>{CONSTANTS.LOADING}</h5>
+                </div>
+        )
+    }
+
     return (
         <div>
             <Header header={CONSTANTS.COMMENTS} />
@@ -105,14 +118,7 @@ const DetailedPost = () => {
                 <div className="card m-5">
                     <h1 className='p-3'>{CONSTANTS.POST}</h1>
                     {
-                        post ?
-                            <div className="card-body pb-5">
-                                <h5 className="card-title">{post[0].title}</h5>
-                                <p className="card-text">{post[0].body}</p>
-                            </div>
-                            : <div>
-                                <h5>{CONSTANTS.LOADING}</h5>
-                            </div>
+                        postInfo()
                     }
 
                     {
