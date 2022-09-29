@@ -10,7 +10,7 @@ const login = async (req, res) => {
         const existingUser = await existsOrNot(email)
         const isMatch = existingUser && (await bcrypt.compare(password, existingUser.password))
         const token = await existingUser.generateToken()
-        res.cookie('jwt', token, {
+        res.cookie(CONSTANTS.JWT, token, {
             expiresIn: new Date(Date.now() + 50000),
             httpOnly: true,
             secure: true
@@ -25,7 +25,7 @@ const login = async (req, res) => {
         }
         else {
             res.status(400)
-            res.send({"status": 400, "message": CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD})
+            res.send(CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD)
         }
     } catch {
         res.status(400)
@@ -72,7 +72,7 @@ const register = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        res.clearCookie('jwt')
+        res.clearCookie(CONSTANTS.JWT)
         await req.user.save()
         res.status(200)
     } catch {

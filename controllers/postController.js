@@ -13,7 +13,6 @@ const addNewPost = (req, res) => {
     const { ownerName, ownerEmail, title, body, likes, status } = req.body
     try {
         PostServices.addNewPost(ownerName, ownerEmail, title, body, likes, status, res)
-        // res.status(200).send(constants.posted)
     } catch {
         res.status(400).send(CONSTANTS.PUBLISH_NEW_POST_FAILED)
     }

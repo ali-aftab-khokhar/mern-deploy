@@ -41,7 +41,8 @@ const CONSTANTS = {
     PUBLISHED_FAILED: 'Published Failied',
     UNPUBLISHED_FAILED: 'Unpublished Failed',
     GENERATE_TOKEN_FAILED: 'Generate Token Failed',
-    LOGOUT_FAILED: 'Logout Failed'
+    LOGOUT_FAILED: 'Logout Failed',
+    JWT: 'jwt'
 }
 
 module.exports = CONSTANTS

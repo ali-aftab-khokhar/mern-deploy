@@ -4,7 +4,7 @@ const User = require('../schema/userSchema');
 
 const getAllPosts = async (res) => {
     try {
-        Post.find({ status: "published" }, function (err, doc) {
+        Post.find({ status: CONSTANTS.PUBLISHED }, function (err, doc) {
             if (!err) {
                 res.status(200)
                 res.json(doc)
