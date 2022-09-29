@@ -29,7 +29,7 @@ const PostCard = (props) => {
     }
 
     const loginFirst = () => {
-        navigate('/')
+        navigate('/login')
     }
 
     const dislikeThePost = (id) => {

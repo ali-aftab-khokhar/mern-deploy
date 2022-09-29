@@ -9,7 +9,7 @@ import AddNewComment from '../../component/comment/AddNewComment'
 import EditDeleteButtons from '../../component/comment/EditDeleteButtons'
 import CommentService from '../../services/commentsService'
 
-const Comment = () => {
+const DetailedPost = () => {
     const commentServiceObj = new CommentService()
     const params = useParams()
     const [commentsData, refetchData] = useFetch(`${params.id}/comments`)
@@ -125,4 +125,4 @@ const Comment = () => {
     )
 }
 
-export default Comment
+export default DetailedPost

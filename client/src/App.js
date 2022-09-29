@@ -3,7 +3,7 @@ import ContextState from './contextState/contextState';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register'
 import Post from './pages/posts/Post';
-import Comment from './pages/comments/Comments';
+import DetailedPost from './pages/detailedPost/DetailedPost';
 import NotFound from './pages/notFound/NotFound';
 import { ToastContainer } from 'react-toastify';
 import Profile from './pages/profile/Profile';
@@ -19,7 +19,7 @@ function App() {
             <Route exact path='/' element={<Post />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register' element={<Register />} />
-            <Route exact path='/post/:id/comments' element={<Comment />} />
+            <Route exact path='/post/:id/comments' element={<DetailedPost />} />
             <Route exact path='/profile/:id' element={<Profile />} />
             <Route exact path='*' element={<NotFound />} />
           </Routes>
