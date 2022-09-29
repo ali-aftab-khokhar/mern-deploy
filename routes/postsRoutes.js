@@ -1,19 +1,25 @@
 const express = require('express')
 const router = express();
-const { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike } = require('../controllers/postController')
+const auth = require('../middleware/auth')
+const { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike,
+    publishThePost, unpublishThePost } = require('../controllers/postController')
 
-router.route('/posts')
-.get(getAllPosts)
-.post(addNewPost)
+router.get('/posts', getAllPosts)
 
-router.route('/posts/:id')
-.delete(deleteThePost)
-.put(editThePost)
+router.post('/posts', auth, addNewPost)
 
-router.put('/post/lod/:id', likeAndDislike)
+router.put('/posts/:id', auth, editThePost)
 
-router.get('/post/:id/comments', getOnePost)
+router.delete('/posts/:id', auth, deleteThePost)
 
-router.get('/profile/:id', getProfile)
+router.put('/post/lod/:id', auth, likeAndDislike)
+
+router.get('/post/:id/comments', auth, getOnePost)
+
+router.get('/profile/:id', auth, getProfile)
+
+router.put('/post/:id/publish', auth, publishThePost)
+
+router.put('/post/:id/unpublish', auth, unpublishThePost)
 
 module.exports = router

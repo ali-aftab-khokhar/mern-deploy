@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useFetch from '../../api_hooks/useFetch'
+import useFetch from '../../services/useFetch'
 import Header from '../../component/Header/Header'
 import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import PostCard from '../../component/posts/PostCard'
-import deleteService from '../../services/deleteMethod'
+import PostService from '../../services/postService'
 
 const Profile = () => {
     const context = useContext(contextAPI)
+    const postServiceObj = new PostService()
     const navigate = useNavigate()
     const [myPosts] = useFetch(`profile/${context.isLoggedIn.id}`)
 
     if (!context.auth()) {
-        navigate('/')
+        navigate('/login')
     }
 
     const navigateToPost = () => {
-        navigate('/posts')
+        navigate('/')
     }
 
     const deleteThePost = (e) => {
         const id = e.target.value
-        console.log(id)
-        deleteService(`posts/${id}`)
+        postServiceObj.deleteThePost(id)
     }
 
     return (

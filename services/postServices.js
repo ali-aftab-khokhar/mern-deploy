@@ -2,9 +2,9 @@ const Post = require('../schema/postSchema')
 const CONSTANTS = require('../constants');
 const User = require('../schema/userSchema');
 
-const getPostsService = async (res) => {
+const getAllPosts = async (res) => {
     try {
-        Post.find({}, function (err, doc) {
+        Post.find({ status: "published" }, function (err, doc) {
             if (!err) {
                 res.status(200)
                 res.json(doc)
@@ -15,14 +15,15 @@ const getPostsService = async (res) => {
     }
 }
 
-const addNewPostService = async (ownerName, ownerEmail, title, body, likes, res) => {
+const addNewPost = async (ownerName, ownerEmail, title, body, likes, status, res) => {
     try {
         const postDetails = new Post({
             ownerName: ownerName,
             title: title,
             body: body,
             ownerEmail: ownerEmail,
-            likes: likes
+            likes: likes,
+            status: status
         })
         await postDetails.save()
     } catch {
@@ -30,7 +31,7 @@ const addNewPostService = async (ownerName, ownerEmail, title, body, likes, res)
     }
 }
 
-const deletePostService = async (id, res) => {
+const deleteThePost = async (id, res) => {
     try {
         await Post.findByIdAndDelete(id)
     } catch {
@@ -38,7 +39,7 @@ const deletePostService = async (id, res) => {
     }
 }
 
-const editPostService = async (id, title, body, res) => {
+const editThePost = async (id, title, body, res) => {
     try {
         await Post.findByIdAndUpdate(id, {
             title: title,
@@ -49,7 +50,7 @@ const editPostService = async (id, title, body, res) => {
     }
 }
 
-const getOnePostService = async (req, res) => {
+const getOnePost = async (req, res) => {
     try {
         Post.find({ _id: req.params.id }, function (err, doc) {
             if (!err) {
@@ -62,7 +63,7 @@ const getOnePostService = async (req, res) => {
     }
 }
 
-const getProfileDataService = async (id, res) => {
+const getProfile = async (id, res) => {
     try {
         User.findOne({ _id: id }, function (err, doc) {
             if (!err) {
@@ -79,7 +80,7 @@ const getProfileDataService = async (id, res) => {
     }
 }
 
-const likeAndDislikeService = async (req, res) => {
+const likeAndDislike = async (req, res) => {
     try {
         if (req.body.todo === CONSTANTS.DISLIKE) {
             dislikeService(req, res)
@@ -91,7 +92,7 @@ const likeAndDislikeService = async (req, res) => {
     }
 }
 
-const dislikeService = (req, res) => {
+const dislike = async (req, res) => {
     try {
         Post.findByIdAndUpdate(req.body.id,
             { "$pull": { likes: req.body.email } },
@@ -107,7 +108,7 @@ const dislikeService = (req, res) => {
     }
 }
 
-const likeService = async (req, res) => {
+const like = async (req, res) => {
     try {
         Post.findByIdAndUpdate(req.body.id,
             { "$push": { likes: req.body.email } },
@@ -123,4 +124,34 @@ const likeService = async (req, res) => {
     }
 }
 
-module.exports = { getPostsService, addNewPostService, deletePostService, editPostService, getOnePostService, getProfileDataService, likeAndDislikeService }
+const publishThePost = async (req, res) => {
+    try {
+        Post.updateOne({ _id: req.body.id },
+            { "$set": { status: CONSTANTS.PUBLISHED } },
+            function (err, doc) {
+                if (!err) {
+                    res.status(200).send(CONSTANTS.PUBLISHED)
+                }
+            }
+        );
+    } catch {
+        res.status(400).send(CONSTANTS.PUBLISHED_FAILED)
+    }
+}
+
+const unpublishThePost = async (req, res) => {
+    try {
+        Post.updateOne({ _id: req.body.id },
+            { "$set": { status: CONSTANTS.NOT_PUBLISHED } },
+            function (err, doc) {
+                if (!err) {
+                    res.status(200).send(CONSTANTS.NOT_PUBLISHED)
+                }
+            }
+        );
+    } catch {
+        res.status(400).send(CONSTANTS.UNPUBLISHED_FAILED)
+    }
+}
+
+module.exports = { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike, publishThePost, unpublishThePost }

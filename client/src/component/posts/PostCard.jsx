@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom'
 import ContextAPI from '../../contextState/contextAPI'
 import LikePost from './LikePost'
 import UnlikePost from './UnlikePost'
-import putService from '../../services/putMethod'
+import PostService from '../../services/postService'
 
 const PostCard = (props) => {
+    const postServiceObj = new PostService()
     const navigate = useNavigate()
     const context = useContext(ContextAPI)
     const [editToggle, setEditToggle] = useState(false)
@@ -38,7 +39,7 @@ const PostCard = (props) => {
             todo: 'dislike'
         }
         if (id && payload.email) {
-            putService(payload, 'Disliked', `post/lod/${id}`)
+            postServiceObj.dislikeThePost(payload, id)
         }
     }
 
@@ -49,8 +50,18 @@ const PostCard = (props) => {
             todo: 'like'
         }
         if (id && payload.email) {
-            putService(payload, 'Liked', `post/lod/${id}`)
+            postServiceObj.likeThePost(payload, id)
         }
+    }
+
+    const publishThePost = (e) => {
+        const id = e.target.value
+        postServiceObj.publishThePost(id)
+    }
+
+    const unpublishThePost = (e) => {
+        const id = e.target.value
+        postServiceObj.unpublishThePost(id)
     }
 
     return (
@@ -89,7 +100,16 @@ const PostCard = (props) => {
                             {
                                 props.currentUser.email === post.ownerEmail ?
                                     <div className='text-end p-3'>
-                                        <button className='btn btn-warning' value={post._id} onClick={editHandler}>
+                                        {
+                                            post.status === CONSTANTS.NOT_PUBLISHED
+                                                ? <button className='btn btn-info' value={post._id} onClick={publishThePost}>
+                                                    {CONSTANTS.PUBLISH_NOW}
+                                                </button>
+                                                : <button className='btn btn-info' value={post._id} onClick={unpublishThePost}>
+                                                    {CONSTANTS.UNPUBLISH_NOW}
+                                                </button>
+                                        }
+                                        <button className='btn btn-warning ms-2' value={post._id} onClick={editHandler}>
                                             {CONSTANTS.EDIT}
                                         </button>
                                         <button className='btn btn-danger ms-2' value={post._id} onClick={props.deleteThePost}>

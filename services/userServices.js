@@ -3,21 +3,27 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const CONSTANTS = require('../constants')
 
-const loginService = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body
         const existingUser = await existsOrNot(email)
-        if (existingUser && (await bcrypt.compare(password, existingUser.password))) {
+        const isMatch = existingUser && (await bcrypt.compare(password, existingUser.password))
+        const token = await existingUser.generateToken()
+        res.cookie('jwt', token, {
+            expiresIn: new Date(Date.now() + 50000),
+            httpOnly: true,
+            //secure: true
+        })
+        if (isMatch) {
             res.status(200)
             res.json({
                 _id: existingUser.id,
                 name: existingUser.name,
                 email: existingUser.email,
-                token: generateToken(existingUser._id),
             })
         }
         else {
-            res.status(400)
+            res.status(404)
             throw new Error(CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD)
         }
     } catch {
@@ -26,7 +32,7 @@ const loginService = async (req, res) => {
     }
 }
 
-const registerService = async (req, res) => {
+const register = async (req, res) => {
     try {
         const { name, email, password } = req.body
         const existingUser = await existsOrNot(email)
@@ -36,17 +42,23 @@ const registerService = async (req, res) => {
         }
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
-        const user = await User.create({
+        const user = new User({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
         })
+        const token = await user.generateToken()
+        res.cookie('jwt', token, {
+            expiresIn: new Date(Date.now() + 30000),
+            httpOnly: true
+        })
+        console.log(cookie)
+        await user.save()
         if (user) {
             res.status(200).json({
                 _id: user.id,
                 name: user.name,
                 email: user.email,
-                token: generateToken(user._id)
             })
         } else {
             res.status(400)
@@ -55,6 +67,16 @@ const registerService = async (req, res) => {
     } catch {
         res.status(400)
         throw new Error(CONSTANTS.INVALID_USER_DATA)
+    }
+}
+
+const logout = async (req, res) => {
+    try {
+        res.clearCookie('jwt')
+        await req.user.save()
+        res.status(200)
+    } catch {
+        res.status(400).send(CONSTANTS.LOGOUT_FAILED)
     }
 }
 
@@ -72,13 +94,8 @@ const existsOrNot = async (email) => {
     }
 }
 
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '2h'
-    })
-}
-
 module.exports = {
-    loginService,
-    registerService
+    login,
+    register,
+    logout
 }

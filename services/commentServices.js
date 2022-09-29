@@ -2,7 +2,7 @@ const Comment = require('../schema/commentSchema')
 const User = require('../schema/userSchema')
 const CONSTANTS = require('../constants')
 
-const getCommentsService = async (id, res) => {
+const getAllComments = async (id, res) => {
     try {
         Comment.find({ commentOn: id }, function (err, doc) {
             if (!err) {
@@ -16,7 +16,7 @@ const getCommentsService = async (id, res) => {
 
 }
 
-const addCommentService = async (payload, res) => {
+const addNewComment = async (payload, res) => {
     try {
         User.find({ email: payload.commentBy }, function (err, doc) {
             if (err) {
@@ -35,7 +35,7 @@ const addCommentService = async (payload, res) => {
     }
 }
 
-const deleteCommentService = async (id, res) => {
+const deleteTheComment = async (id, res) => {
     try {
         await Comment.findByIdAndDelete(id)
     } catch {
@@ -43,7 +43,7 @@ const deleteCommentService = async (id, res) => {
     }
 }
 
-const editCommentService = async (id, body, res) => {
+const editTheComment = async (id, body, res) => {
     try {
         await Comment.findByIdAndUpdate(id, {
             commentBody: body
@@ -54,8 +54,8 @@ const editCommentService = async (id, body, res) => {
 }
 
 module.exports = {
-    getCommentsService,
-    addCommentService,
-    deleteCommentService,
-    editCommentService
+    getAllComments,
+    addNewComment,
+    deleteTheComment,
+    editTheComment
 }

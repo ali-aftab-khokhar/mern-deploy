@@ -3,14 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import Header from '../../component/Header/Header'
-import useFetch from '../../api_hooks/useFetch'
+import useFetch from '../../services/useFetch'
 import EditComment from '../../component/comment/EditComment'
 import AddNewComment from '../../component/comment/AddNewComment'
-import postService from '../../services/postMethod'
-import deleteService from '../../services/deleteMethod'
 import EditDeleteButtons from '../../component/comment/EditDeleteButtons'
+import CommentService from '../../services/commentsService'
 
 const Comment = () => {
+    const commentServiceObj = new CommentService()
     const params = useParams()
     const [commentsData, refetchData] = useFetch(`${params.id}/comments`)
     const [post] = useFetch(`post/${params.id}/comments`)
@@ -22,7 +22,7 @@ const Comment = () => {
 
     useEffect(() => {
         if (!context.auth()) {
-            navigate('/')
+            navigate('/login')
         }
     }, [])
 
@@ -33,14 +33,16 @@ const Comment = () => {
             _id: commentsData.length
         }
         if (isLoggedIn.email) {
-            postService(payload, 'Commented', `${params.id}/comments`)
+            commentServiceObj.publishNewComment(payload, params.id)
+            // postService(payload, 'Commented', `${params.id}/comments`)
         }
         refetchData()
     }
 
     const deleteHandler = (e) => {
         const id = e.target.value
-        deleteService(`comment/${id}`)
+        // deleteService(`comment/${id}`)
+        commentServiceObj.deleteTheComment(id)
         refetchData()
     }
 
@@ -56,7 +58,7 @@ const Comment = () => {
     }
 
     const navigateToPost = () => {
-        navigate('/posts')
+        navigate('/')
     }
 
     return (

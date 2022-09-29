@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 const userRoute = require('./routes/userRoutes')
 const postRoute = require('./routes/postsRoutes')
 const commentRoute = require('./routes/commentRoutes')
@@ -24,6 +25,7 @@ const options = {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 app.use('/api', userRoute)
 app.use('/api', postRoute)
 app.use('/api', commentRoute);

@@ -2,15 +2,17 @@ import React, { useContext, useState } from 'react'
 import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import Header from '../../component/Header/Header'
-import useFetch from '../../api_hooks/useFetch'
+import useFetch from '../../services/useFetch'
 import { useNavigate } from 'react-router-dom'
 import PostCard from '../../component/posts/PostCard'
 import AddNewPost from '../../component/posts/AddNewPost'
 import { toast } from 'react-toastify';
-import postService from '../../services/postMethod'
-import deleteService from '../../services/deleteMethod'
+import PostService from '../../services/postService'
+import UserService from '../../services/userService'
 
 const Post = () => {
+    const postServivesObj = new PostService()
+    const userServiceObj = new UserService()
     const [data, refetchData] = useFetch('posts')
     const context = useContext(contextAPI)
     const [isLoggedIn] = useState(context.isLoggedIn)
@@ -18,32 +20,34 @@ const Post = () => {
 
     const logoutHandle = () => {
         context.logout()
+        userServiceObj.logout()
         toast.success('Logged Out')
-        navigate('/')
+        navigate('/login')
     }
 
     const deleteThePost = (e) => {
         const id = e.target.value
-        deleteService(`posts/${id}`)
+        postServivesObj.deleteThePost(id)
         refetchData()
     }
 
-    const publishPost = (title, body) => {
+    const publishPost = (title, body, status) => {
         const payload = {
             title: title,
             body: body,
             ownerEmail: isLoggedIn.email,
             ownerName: isLoggedIn.name,
-            likes: []
+            likes: [],
+            status: status
         }
         if (payload.ownerEmail) {
-            postService(payload, 'Posted', 'posts')
+            postServivesObj.addNewPost(payload)
         }
         refetchData()
     }
 
     const loginHandle = () => {
-        navigate('/')
+        navigate('/login')
     }
 
     return (

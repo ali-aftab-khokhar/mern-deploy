@@ -35,7 +35,13 @@ const CONSTANTS = {
     LIKE: 'like',
     LIKED: 'Liked',
     DISLIKED: 'Disliked',
-    LIKE_DISLIKE_FAILED: 'Cant like or disliked'
+    LIKE_DISLIKE_FAILED: 'Cant like or disliked',
+    PUBLISHED: 'published',
+    NOT_PUBLISHED: 'not_published',
+    PUBLISHED_FAILED: 'Published Failied',
+    UNPUBLISHED_FAILED: 'Unpublished Failed',
+    GENERATE_TOKEN_FAILED: 'Generate Token Failed',
+    LOGOUT_FAILED: 'Logout Failed'
 }
 
 module.exports = CONSTANTS

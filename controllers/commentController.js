@@ -1,15 +1,11 @@
-const express = require('express')
-const app = express();
-const Comment = require('../schema/commentSchema')
-const User = require('../schema/userSchema')
-const constants = require('../constants')
+const CONSTANTS = require('../constants')
 const CommentServices = require('../services/commentServices')
 
 const getAllComments = async (req, res) => {
     try {
-        await CommentServices.getCommentsService(req.params.id, res)
+        await CommentServices.getAllComments(req.params.id, res)
     } catch {
-        res.status(400).send(constants.comments_fetch_failed)
+        res.status(400).send(CONSTANTS.COMMENTS_FETCH_FAILED)
     }
 }
 
@@ -20,28 +16,28 @@ const addNewComment = async (req, res) => {
             commentBy: req.body.commentBy,
             commentBody: req.body.commentBody,
         }
-        CommentServices.addCommentService(payload, res)
-        res.status(200).send(constants.commented)
+        CommentServices.addNewComment(payload, res)
+        res.status(200).send(CONSTANTS.COMMENTED)
     } catch {
-        res.status(400).send(constants.publish_new_comment_failed)
+        res.status(400).send(CONSTANTS.PUBLISH_NEW_COMMENT_FAILED)
     }
 }
 
 const deleteTheComment = async (req, res) => {
     try {
-        CommentServices.deleteCommentService(req.params.id, res)
-        res.status(200).send(constants.deleted)
+        CommentServices.deleteTheComment(req.params.id, res)
+        res.status(200).send(CONSTANTS.DELETED)
     } catch {
-        res.status(400).send(constants.deletion_failed)
+        res.status(400).send(CONSTANTS.DELETION_FAILED)
     }
 }
 
 const editTheComment = async (req, res) => {
     try {
-        CommentServices.editCommentService(req.params.id, req.body.updatedComment, res)
-        res.status(200).send(constants.updated)
+        CommentServices.editTheComment(req.params.id, req.body.updatedComment, res)
+        res.status(200).send(CONSTANTS.UPDATED)
     } catch {
-        res.status(400).send(constants.edit_failed)
+        res.status(400).send(CONSTANTS.EDIT_FAILED)
     }
 }
 

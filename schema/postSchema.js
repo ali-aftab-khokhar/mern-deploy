@@ -13,7 +13,8 @@ const postSchema = new mongoose.Schema({
         required: [true, CONSTANTS.ENTER_BODY]
     },
     ownerEmail: type.string,
-    likes: [type.string]
+    likes: [type.string],
+    status: type.string
 })
 
 const Posts = mongoose.model(CONSTANTS.POSTS_SCHEMA, postSchema)

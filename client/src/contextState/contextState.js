@@ -4,11 +4,12 @@ import contextAPI from './contextAPI'
 const ContextState = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState({name: '', email: '', id: ''})
 
-    const login = (nameParam, emailParam, idParam) => {
+    const login = (nameParam, emailParam, idParam, tokenParam) => {
         setIsLoggedIn({
             name: nameParam,
             email: emailParam,
-            id: idParam
+            id: idParam,
+            token: tokenParam
         })
     }
 

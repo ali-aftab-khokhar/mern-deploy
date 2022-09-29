@@ -1,16 +1,18 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CONSTANTS from '../../constants'
 import Header from '../../component/Header/Header'
-import axios from 'axios'
 import contextAPI from '../../contextState/contextAPI'
-import { toast } from 'react-toastify';
+import UserService from '../../services/userService'
 
-const Home = () => {
-    const emailRef = useRef(null)
-    const passwordRef = useRef(null)
+const Login = () => {
+    const userServiceObj = new UserService()
     const navigate = useNavigate()
     const context = useContext(contextAPI)
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: '',
+    })
 
     const navigateToRegister = () => {
         navigate('/register')
@@ -18,21 +20,17 @@ const Home = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        const payload = {
-            email: emailRef.current.value,
-            password: passwordRef.current.value
-        }
-        axios.post(`/api/`, payload)
-            .then((res) => {
-                if (res.status === 200) {
-                    context.login(res.data.name, res.data.email, res.data._id)
-                    toast.success('Logged In')
-                    navigate('/posts')
-                }
-                else {
-                    toast.warning('Something Error')
-                }
-            })
+        const user = await userServiceObj.loginUser(credentials)
+        context.login(user.name, user.email, user._id, user.token)
+        navigate('/')
+    }
+
+    const onChangeHandler = (e) => {
+        e.preventDefault()
+        setCredentials(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }))
     }
 
     return (
@@ -42,11 +40,11 @@ const Home = () => {
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
                         <label>{CONSTANTS.EMAIL}</label>
-                        <input type='email' className='form-control mt-2' placeholder={CONSTANTS.ENTER_AN_EMAIL} ref={emailRef} required />
+                        <input type='email' className='form-control mt-2' name={CONSTANTS.EMAIL_FIELD} placeholder={CONSTANTS.ENTER_AN_EMAIL} onChange={onChangeHandler} required />
                     </div>
                     <div className='form-group mt-4'>
                         <label>{CONSTANTS.PASSWORD}</label>
-                        <input type='password' className='form-control mt-2' placeholder={CONSTANTS.ENTER_PASSWORD} ref={passwordRef} required />
+                        <input type='password' className='form-control mt-2' name={CONSTANTS.PASSWORD_FIELD} placeholder={CONSTANTS.ENTER_PASSWORD} onChange={onChangeHandler} required />
                     </div>
                     <div>
                         <input type='submit' value={CONSTANTS.LOGIN} className='btn btn-outline-dark mt-4' />
@@ -60,4 +58,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Login

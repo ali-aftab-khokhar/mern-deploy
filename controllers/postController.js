@@ -1,63 +1,79 @@
-const constants = require('../constants')
+const CONSTANTS = require('../constants')
 const PostServices = require('../services/postServices')
 
 const getAllPosts = async (req, res) => {
     try {
-        await PostServices.getPostsService(res)
+        await PostServices.getAllPosts(res)
     } catch {
-        res.status(400).send(constants.post_fetch_failed)
+        res.status(400).send(CONSTANTS.POST_FETCH_FAILED)
     }
 }
 
-const addNewPost = async (req, res) => {
-    const { ownerName, ownerEmail, title, body, likes } = req.body
+const addNewPost = (req, res) => {
+    const { ownerName, ownerEmail, title, body, likes, status } = req.body
     try {
-        PostServices.addNewPostService(ownerName, ownerEmail, title, body, likes, res)
+        PostServices.addNewPost(ownerName, ownerEmail, title, body, likes, status, res)
         // res.status(200).send(constants.posted)
     } catch {
-        res.status(400).send(constants.publish_new_post_failed)
+        res.status(400).send(CONSTANTS.PUBLISH_NEW_POST_FAILED)
     }
 }
 
-const deleteThePost = async (req, res) => {
+const deleteThePost = (req, res) => {
     try {
-        PostServices.deletePostService(req.params.id, res)
-        res.status(200).send(constants.posted)
+        PostServices.deleteThePost(req.params.id, res)
+        res.status(200).send(CONSTANTS.POSTED)
     } catch {
-        res.status(400).send(constants.deletion_failed)
+        res.status(400).send(CONSTANTS.DELETION_FAILED)
     }
 }
 
-const editThePost = async (req, res) => {
+const editThePost = (req, res) => {
     try {
-        PostServices.editPostService(req.params.id, req.body.title, req.body.body, res)
-        res.status(200).send(constants.posted)
+        PostServices.editThePost(req.params.id, req.body.title, req.body.body, res)
+        res.status(200).send(CONSTANTS.POSTED)
     } catch {
-        res.status(400).send(constants.edit_failed)
+        res.status(400).send(CONSTANTS.EDIT_FAILED)
     }
 }
 
-const getOnePost = async (req, res) => {
+const getOnePost = (req, res) => {
     try {
-        PostServices.getOnePostService(req, res)
+        PostServices.getOnePost(req, res)
     } catch {
-        res.status(400).send(constants.cant_get_individual_post)
+        res.status(400).send(CONSTANTS.CANT_GET_INDIVIDUAL_POST)
     }
 }
 
-const getProfile = async (req, res) => {
+const getProfile = (req, res) => {
     try {
-        PostServices.getProfileDataService(req.params.id, res) 
+        PostServices.getProfile(req.params.id, res)
     } catch {
-        res.status(400).send(constants.profile_data_failed)
+        res.status(400).send(CONSTANTS.PROFILE_DATA_FAILED)
     }
 }
 
-const likeAndDislike = async (req, res) => {
-    try {        
-        PostServices.likeAndDislikeService(req, res) 
+const likeAndDislike = (req, res) => {
+    try {
+        PostServices.likeAndDislike(req, res)
     } catch {
-        res.status(400).send(constants.profile_data_failed)
+        res.status(400).send(CONSTANTS.LIKE_DISLIKE_FAILED)
+    }
+}
+
+const publishThePost = (req, res) => {
+    try {
+        PostServices.publishThePost(req, res)
+    } catch {
+        res.status(400).send(CONSTANTS.PUBLISHED_FAILED)
+    }
+}
+
+const unpublishThePost = (req, res) => {
+    try {
+        PostServices.unpublishThePost(req, res)
+    } catch {
+        res.status(400).send(CONSTANTS.UNPUBLISHED_FAILED)
     }
 }
 
@@ -68,5 +84,7 @@ module.exports = {
     editThePost,
     getOnePost,
     getProfile,
-    likeAndDislike
+    likeAndDislike,
+    publishThePost,
+    unpublishThePost
 }
