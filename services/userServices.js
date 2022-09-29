@@ -13,7 +13,7 @@ const login = async (req, res) => {
         res.cookie('jwt', token, {
             expiresIn: new Date(Date.now() + 50000),
             httpOnly: true,
-            //secure: true
+            secure: true
         })
         if (isMatch) {
             res.status(200)
