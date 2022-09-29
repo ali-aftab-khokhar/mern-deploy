@@ -10,6 +10,7 @@ class UserService extends BaseServiceClass{
     async loginUser(payload){
         const userDetails = await this.specialPostMethod(payload)
         if (userDetails.status === 200){
+            console.log(userDetails)
             toast.success(CONSTANTS.LOGGED_IN)
             return userDetails.data
         }
