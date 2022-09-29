@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 class UserService extends BaseServiceClass{
     registerNewUser(payload) {
-        this.postMethod(payload, CONSTANTS.USER_ADDED, 'register')
+        this.postMethod(payload, CONSTANTS.USER_ADDED, CONSTANTS.SIGNUP_FAILED, 'register')
     }
 
     async loginUser(payload){

@@ -4,46 +4,62 @@ import CONSTANTS from "../constants";
 
 class BaseServiceClass {
 
-    putMethod(payload, success, url) {
-        axios.put(`/api/${url}`, payload)
-            .then((res) => {
-                if (res.status === 200) {
-                    toast.success(success)
-                }
-                else {
-                    toast.warning(CONSTANTS.SOMETHING_WENT_WRONG)
-                }
-            })
+    putMethod(payload, success, error, url) {
+        try {
+            axios.put(`/api/${url}`, payload)
+                .then((res) => {
+                    if (res.status === 200) {
+                        toast.success(success)
+                    }
+                    else {
+                        toast.warning(CONSTANTS.SOMETHING_WENT_WRONG)
+                    }
+                })
+        } catch {
+            toast.error(error)
+        }
     }
 
-    deleteMethod(url) {
-        axios.delete(`/api/${url}`)
-            .then((res) => {
-                if (res.status === 200) {
-                    toast.success('Deleted')
-                }
-                else {
-                    toast.warning(CONSTANTS.SOMETHING_WENT_WRONG)
-                }
-            })
+    deleteMethod(url, error) {
+        try {
+            axios.delete(`/api/${url}`)
+                .then((res) => {
+                    if (res.status === 200) {
+                        toast.success('Deleted')
+                    }
+                    else {
+                        toast.warning(CONSTANTS.SOMETHING_WENT_WRONG)
+                    }
+                })
+        } catch {
+            toast.error(error)
+        }
     }
 
-    async postMethod(payload, success, url = '') {
-        await axios.post(`/api/${url}`, payload)
-            .then((res) => {
-                console.log(res.status)
-                if (res.status === 200) {
-                    toast.success(success)
-                    return res.data[0]._id
-                }
-                else {
-                    toast.warning(CONSTANTS.SOMETHING_WENT_WRONG)
-                }
-            })
+    async postMethod(payload, success, error, url = '') {
+        try {
+            await axios.post(`/api/${url}`, payload)
+                .then((res) => {
+                    console.log(res.status)
+                    if (res.status === 200) {
+                        toast.success(success)
+                        return res.data[0]._id
+                    }
+                    else {
+                        toast.warning(CONSTANTS.SOMETHING_WENT_WRONG)
+                    }
+                })
+        } catch {
+            toast.error(error)
+        }
     }
 
-    async specialPostMethod (credentials) {
-        return await(axios.post(`/api/`, credentials))
+    async specialPostMethod(credentials) {
+        try {
+            return await (axios.post(`/api/`, credentials))
+        } catch {
+            toast.error(CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD)
+        }
     }
 
     async logoutMethod() {

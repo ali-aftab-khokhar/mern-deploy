@@ -2,6 +2,7 @@ const User = require('../schema/userSchema')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const CONSTANTS = require('../constants')
+const createHttpError = require("http-errors");
 
 const login = async (req, res) => {
     try {
@@ -23,8 +24,8 @@ const login = async (req, res) => {
             })
         }
         else {
-            res.status(404)
-            throw new Error(CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD)
+            res.status(400)
+            res.send({"status": 400, "message": CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD})
         }
     } catch {
         res.status(400)
