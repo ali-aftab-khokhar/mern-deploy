@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CONSTANTS from '../../constants'
 import contextAPI from '../../contextState/contextAPI'
 import Header from '../../component/Header/Header'
@@ -15,8 +15,16 @@ const Post = () => {
     const userServiceObj = new UserService()
     const [data, refetchData] = useFetch('posts')
     const context = useContext(contextAPI)
-    const [isLoggedIn] = useState(context.isLoggedIn)
+    const [isLoggedIn, setIsLoggedIn] = useState({})
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.length){
+            setIsLoggedIn(JSON.parse(localStorage.getItem('userLoggedIn')))
+        } else {
+            setIsLoggedIn(context.isLoggedIn)
+        }
+    }, [])
 
     const logoutHandle = () => {
         context.logout()

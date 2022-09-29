@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike,
     publishThePost, unpublishThePost } = require('../controllers/postController')
 
-router.get('/posts', getAllPosts)
+router.get('/posts', auth, getAllPosts)
 
 router.post('/posts', auth, addNewPost)
 
