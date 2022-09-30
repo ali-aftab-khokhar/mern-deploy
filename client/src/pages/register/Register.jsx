@@ -16,7 +16,7 @@ const Register = () => {
   })
 
   const navigateToLogin = () => {
-    navigate('/')
+    navigate('/login')
   }
 
   const onChangeHandler = (e) => {
@@ -46,7 +46,7 @@ const Register = () => {
             <Header header={CONSTANTS.APP_TITLE} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
                 <form onSubmit={onSubmit}>
-                    <div className='form-group'>
+                    <div className='form-group mb-4'>
                         <label>{CONSTANTS.NAME}</label>
                         <input type='text' className='form-control mt-2' placeholder={CONSTANTS.ENTER_YOUR_NAME} name={CONSTANTS.NAME_FIELD} onChange={onChangeHandler} required />
                     </div>
