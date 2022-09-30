@@ -1,15 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ContextState from './contextState/contextState';
-import Login from './pages/login/Login';
+/* eslint-disable react/react-in-jsx-scope */
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ContextState from './contextState/contextState'
+import Login from './pages/login/Login'
 import Register from './pages/register/Register'
-import Post from './pages/posts/Post';
-import DetailedPost from './pages/detailedPost/DetailedPost';
-import NotFound from './pages/notFound/NotFound';
-import { ToastContainer } from 'react-toastify';
-import Profile from './pages/profile/Profile';
+import Post from './pages/posts/Post'
+import DetailedPost from './pages/detailedPost/DetailedPost'
+import NotFound from './pages/notFound/NotFound'
+import { ToastContainer } from 'react-toastify'
+import Profile from './pages/profile/Profile'
 
-function App() {
-
+function App () {
   return (
     <div className='App-header'>
       <ToastContainer />
@@ -26,7 +26,7 @@ function App() {
         </Router>
       </ContextState>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

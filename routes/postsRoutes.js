@@ -1,8 +1,10 @@
 const express = require('express')
-const router = express();
+const router = express()
 const auth = require('../middleware/auth')
-const { getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike,
-    publishThePost, unpublishThePost } = require('../controllers/postController')
+const {
+  getAllPosts, addNewPost, deleteThePost, editThePost, getOnePost, getProfile, likeAndDislike,
+  publishThePost, unpublishThePost
+} = require('../controllers/postController')
 
 router.get('/posts', getAllPosts)
 

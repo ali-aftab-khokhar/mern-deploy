@@ -1,40 +1,40 @@
-import CONSTANTS from "../constants";
-import BaseServiceClass from "./baseServiceClass";
+import CONSTANTS from '../constants'
+import BaseServiceClass from './baseServiceClass'
 
 class PostService extends BaseServiceClass {
-    addNewPost(payload) {
-        this.postMethod(payload, CONSTANTS.POSTED, CONSTANTS.NEW_POST_FAILED, 'posts')
-    }
+  addNewPost (payload) {
+    this.postMethod(payload, CONSTANTS.POSTED, CONSTANTS.NEW_POST_FAILED, 'posts')
+  }
 
-    deleteThePost(post_id) {
-        this.deleteMethod(`posts/${post_id}`, CONSTANTS.DELETION_FAILED)
-    }
+  deleteThePost (postId) {
+    this.deleteMethod(`posts/${postId}`, CONSTANTS.DELETION_FAILED)
+  }
 
-    editThePost(payload, post_id) {
-        this.putMethod(payload, CONSTANTS.EDITED, CONSTANTS.EDIT_FAILED, `posts/${post_id}`)
-    }
+  editThePost (payload, postId) {
+    this.putMethod(payload, CONSTANTS.EDITED, CONSTANTS.EDIT_FAILED, `posts/${postId}`)
+  }
 
-    dislikeThePost(payload, post_id) {
-        this.putMethod(payload, CONSTANTS.DISLIKED, CONSTANTS.DISLIKE_FAILED, `post/lod/${post_id}`)
-    }
+  dislikeThePost (payload, postId) {
+    this.putMethod(payload, CONSTANTS.DISLIKED, CONSTANTS.DISLIKE_FAILED, `post/lod/${postId}`)
+  }
 
-    likeThePost(payload, post_id) {
-        this.putMethod(payload, CONSTANTS.LIKED, CONSTANTS.LIKE_FAILED, `post/lod/${post_id}`)
-    }
+  likeThePost (payload, postId) {
+    this.putMethod(payload, CONSTANTS.LIKED, CONSTANTS.LIKE_FAILED, `post/lod/${postId}`)
+  }
 
-    publishThePost(post_id) {
-        const payload = {
-            id: post_id
-        }
-        this.putMethod(payload, CONSTANTS.PUBLISHED_SUCCESSFULLY, CONSTANTS.PUBLISHED_FAILED, `post/${post_id}/publish`)
+  publishThePost (postId) {
+    const payload = {
+      id: postId
     }
+    this.putMethod(payload, CONSTANTS.PUBLISHED_SUCCESSFULLY, CONSTANTS.PUBLISHED_FAILED, `post/${postId}/publish`)
+  }
 
-    unpublishThePost(post_id) {
-        const payload = {
-            id: post_id
-        }
-        this.putMethod(payload, CONSTANTS.UNPUBLISHED_SUCCESSFULLY, CONSTANTS.UNPUBLISHED_FAILED, `post/${post_id}/unpublish`)
+  unpublishThePost (postId) {
+    const payload = {
+      id: postId
     }
+    this.putMethod(payload, CONSTANTS.UNPUBLISHED_SUCCESSFULLY, CONSTANTS.UNPUBLISHED_FAILED, `post/${postId}/unpublish`)
+  }
 }
 
 export default PostService

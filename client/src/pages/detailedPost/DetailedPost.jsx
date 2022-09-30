@@ -10,62 +10,63 @@ import EditDeleteButtons from '../../component/comment/EditDeleteButtons'
 import CommentService from '../../services/commentsService'
 
 const DetailedPost = () => {
-    const commentServiceObj = new CommentService()
-    const params = useParams()
-    const [commentsData, refetchData] = useFetch(`${params.id}/comments`)
-    const [post] = useFetch(`post/${params.id}/comments`)
-    const context = useContext(contextAPI)
-    const [isLoggedIn] = useState(context.isLoggedIn)
-    const navigate = useNavigate()
-    const [editToggle, setEditToggle] = useState(false)
-    const [activeCommentId, setActiveCommentId] = useState("")
+  const commentServiceObj = new CommentService()
+  const params = useParams()
+  const [commentsData, refetchData] = useFetch(`${params.id}/comments`)
+  const [post] = useFetch(`post/${params.id}/comments`)
+  const context = useContext(contextAPI)
+  const [isLoggedIn] = useState(context.isLoggedIn)
+  const navigate = useNavigate()
+  const [editToggle, setEditToggle] = useState(false)
+  const [activeCommentId, setActiveCommentId] = useState('')
 
-    useEffect(() => {
-        if (!context.auth()) {
-            navigate('/login')
-        }
-    }, [])
-
-    const addNewComment = (body, email) => {
-        const payload = {
-            commentBody: body,
-            commentBy: email,
-            _id: commentsData.length
-        }
-        if (isLoggedIn.email) {
-            commentServiceObj.publishNewComment(payload, params.id)
-            // postService(payload, 'Commented', `${params.id}/comments`)
-        }
-        refetchData()
+  useEffect(() => {
+    if (!context.auth()) {
+      navigate('/login')
     }
+  }, [])
 
-    const deleteHandler = (e) => {
-        const id = e.target.value
-        // deleteService(`comment/${id}`)
-        commentServiceObj.deleteTheComment(id)
-        refetchData()
+  const addNewComment = (body, email) => {
+    const payload = {
+      commentBody: body,
+      commentBy: email,
+      _id: commentsData.length
     }
-
-    const editHandler = (e) => {
-        setActiveCommentId(e.target.value)
-        setEditToggle(!editToggle)
-        refetchData()
+    if (isLoggedIn.email) {
+      commentServiceObj.publishNewComment(payload, params.id)
+      // postService(payload, 'Commented', `${params.id}/comments`)
     }
+    refetchData()
+  }
 
-    const saveEdits = (e) => {
-        setEditToggle(!editToggle)
-        refetchData()
-    }
+  const deleteHandler = (e) => {
+    const id = e.target.value
+    // deleteService(`comment/${id}`)
+    commentServiceObj.deleteTheComment(id)
+    refetchData()
+  }
 
-    const navigateToPost = () => {
-        navigate('/')
-    }
+  const editHandler = (e) => {
+    setActiveCommentId(e.target.value)
+    setEditToggle(!editToggle)
+    refetchData()
+  }
 
-    const commentSection = () => {
-        return (<div className='pb-5'>
+  const saveEdits = (e) => {
+    setEditToggle(!editToggle)
+    refetchData()
+  }
+
+  const navigateToPost = () => {
+    navigate('/')
+  }
+
+  const commentSection = () => {
+    return (<div className='pb-5'>
             <h2 className='p-4'>{CONSTANTS.COMMENTS}</h2>
             {
-                commentsData ? commentsData.map((comm) => {
+                commentsData
+                  ? commentsData.map((comm) => {
                     return (<div className='w-50 p-3 ms-3 b-2 mb-4' key={comm._id}>
                         <div className='d-flex'>
                             <div className='w-75'>
@@ -77,38 +78,39 @@ const DetailedPost = () => {
                                 </div>
                             </div>
                             {
-                                comm.commentBy === isLoggedIn.email ?
-                                    <div className='text-end p-2 d-flex'>
+                                comm.commentBy === isLoggedIn.email
+                                  ? <div className='text-end p-2 d-flex'>
                                         <EditDeleteButtons editHandler={editHandler} deleteHandler={deleteHandler} id={comm._id} />
                                     </div>
-                                    : null
+                                  : null
                             }
                         </div>
                         {
-                            editToggle && activeCommentId === comm._id ?
-                                <EditComment saveEdits={saveEdits} commentBody={comm.commentBody} id={comm._id} />
-                                : null
+                            editToggle && activeCommentId === comm._id
+                              ? <EditComment saveEdits={saveEdits} commentBody={comm.commentBody} id={comm._id} />
+                              : null
                         }
                     </div>)
-                }) : <div className='ps-5'> {CONSTANTS.LOADING} </div>
+                  })
+                  : <div className='ps-5'> {CONSTANTS.LOADING} </div>
             }
         </div>)
-    }
+  }
 
-    const postInfo = () => {
-        return (
-            post ?
-                <div className="card-body pb-5">
+  const postInfo = () => {
+    return (
+      post
+        ? <div className="card-body pb-5">
                     <h5 className="card-title">{post[0].title}</h5>
                     <p className="card-text">{post[0].body}</p>
                 </div>
-                : <div>
+        : <div>
                     <h5>{CONSTANTS.LOADING}</h5>
                 </div>
-        )
-    }
+    )
+  }
 
-    return (
+  return (
         <div>
             <Header header={CONSTANTS.COMMENTS} />
             <div className='p-4'>
@@ -126,15 +128,15 @@ const DetailedPost = () => {
                     }
 
                     {
-                        isLoggedIn.email ?
-                            <AddNewComment addNewComment={addNewComment} />
-                            : null
+                        isLoggedIn.email
+                          ? <AddNewComment addNewComment={addNewComment} />
+                          : null
                     }
 
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
 export default DetailedPost

@@ -6,34 +6,34 @@ import contextAPI from '../../contextState/contextAPI'
 import UserService from '../../services/userService'
 
 const Login = () => {
-    const userServiceObj = new UserService()
-    const navigate = useNavigate()
-    const context = useContext(contextAPI)
-    const [credentials, setCredentials] = useState({
-        email: '',
-        password: '',
-    })
+  const userServiceObj = new UserService()
+  const navigate = useNavigate()
+  const context = useContext(contextAPI)
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  })
 
-    const navigateToRegister = () => {
-        navigate('/register')
-    }
+  const navigateToRegister = () => {
+    navigate('/register')
+  }
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        const user = await userServiceObj.loginUser(credentials)
-        context.login(user.name, user.email, user._id, user.token)
-        navigate('/')
-    }
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const user = await userServiceObj.loginUser(credentials)
+    context.login(user.name, user.email, user._id, user.token)
+    navigate('/')
+  }
 
-    const onChangeHandler = (e) => {
-        e.preventDefault()
-        setCredentials(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
-    }
+  const onChangeHandler = (e) => {
+    e.preventDefault()
+    setCredentials(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
 
-    return (
+  return (
         <div>
             <Header header={CONSTANTS.APP_TITLE} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
@@ -55,7 +55,7 @@ const Login = () => {
                 </form>
             </div>
         </div>
-    )
+  )
 }
 
 export default Login

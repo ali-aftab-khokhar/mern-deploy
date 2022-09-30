@@ -1,28 +1,28 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import CONSTANTS from "../constants";
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import CONSTANTS from '../constants'
 // import API from "../api_config";
 
 const useFetch = (url) => {
-    const [data, setData] = useState(null);
+  const [data, setData] = useState(null)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await axios.get(`/api/${url}`)
-                .then((response) => {
-                    console.log(response.data)
-                    setData(response.data)
-                })
-                .catch(() => console.log(CONSTANTS.API_Error), [])
-        }
-        fetchData()
-    }, [url, data])
-
-    const refetchData = () => {
-        setData([])
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios.get(`/api/${url}`)
+        .then((response) => {
+          console.log(response.data)
+          setData(response.data)
+        })
+        .catch(() => console.log(CONSTANTS.API_Error), [])
     }
+    fetchData()
+  }, [url, data])
 
-    return [data, refetchData];
-};
+  const refetchData = () => {
+    setData([])
+  }
 
-export default useFetch;
+  return [data, refetchData]
+}
+
+export default useFetch

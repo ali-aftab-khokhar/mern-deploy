@@ -5,42 +5,42 @@ import Header from '../../component/Header/Header'
 import UserService from '../../services/userService'
 
 const Register = () => {
-    const userServiceObj = new UserService()
-    const navigate = useNavigate()
-    const [signupCredentials, setSignupCredentials] = useState({
-        email: '',
-        password: '',
-        name: '',
-        confirmPassword: ''
-    })
+  const userServiceObj = new UserService()
+  const navigate = useNavigate()
+  const [signupCredentials, setSignupCredentials] = useState({
+    email: '',
+    password: '',
+    name: '',
+    confirmPassword: ''
+  })
 
-    const navigateToLogin = () => {
-        navigate('/')
+  const navigateToLogin = () => {
+    navigate('/')
+  }
+
+  const onChangeHandler = (e) => {
+    e.preventDefault()
+    setSignupCredentials(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const payload = {
+      name: signupCredentials.name,
+      email: signupCredentials.email,
+      password: signupCredentials.password
     }
-
-    const onChangeHandler = (e) => {
-        e.preventDefault()
-        setSignupCredentials(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
+    if (signupCredentials.password === signupCredentials.confirmPassword) {
+      // postService(payload, 'User Added', 'register')
+      userServiceObj.registerNewUser(payload)
+      navigate('/login')
     }
+  }
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        const payload = {
-            name: signupCredentials.name,
-            email: signupCredentials.email,
-            password: signupCredentials.password
-        }
-        if (signupCredentials.password === signupCredentials.confirmPassword) {
-            // postService(payload, 'User Added', 'register')
-            userServiceObj.registerNewUser(payload)
-            navigate('/login')
-        }
-    }
-
-    return (
+  return (
         <div>
             <Header header={CONSTANTS.APP_TITLE} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
@@ -70,7 +70,7 @@ const Register = () => {
                 </form>
             </div>
         </div>
-    )
+  )
 }
 
 export default Register
