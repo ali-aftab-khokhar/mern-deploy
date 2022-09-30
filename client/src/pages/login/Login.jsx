@@ -4,6 +4,7 @@ import CONSTANTS from '../../constants'
 import Header from '../../component/Header/Header'
 import contextAPI from '../../contextState/contextAPI'
 import UserService from '../../services/userService'
+import Forms from '../../component/forms/Forms'
 
 const Login = () => {
   const userServiceObj = new UserService()
@@ -38,14 +39,7 @@ const Login = () => {
             <Header header={CONSTANTS.APP_TITLE} />
             <div className='text-center mt-5 d-flex justify-content-center align-content-center'>
                 <form onSubmit={onSubmit}>
-                    <div className='form-group'>
-                        <label>{CONSTANTS.EMAIL}</label>
-                        <input type='email' className='form-control mt-2' name={CONSTANTS.EMAIL_FIELD} placeholder={CONSTANTS.ENTER_AN_EMAIL} onChange={onChangeHandler} required />
-                    </div>
-                    <div className='form-group mt-4'>
-                        <label>{CONSTANTS.PASSWORD}</label>
-                        <input type='password' className='form-control mt-2' name={CONSTANTS.PASSWORD_FIELD} placeholder={CONSTANTS.ENTER_PASSWORD} onChange={onChangeHandler} required />
-                    </div>
+                  <Forms onChangeHandler={onChangeHandler} />
                     <div>
                         <input type='submit' value={CONSTANTS.LOGIN} className='btn btn-outline-dark mt-4' />
                     </div>

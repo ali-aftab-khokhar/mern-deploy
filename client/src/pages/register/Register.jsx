@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import CONSTANTS from '../../constants'
 import Header from '../../component/Header/Header'
 import UserService from '../../services/userService'
+import Forms from '../../component/forms/Forms'
 
 const Register = () => {
   const userServiceObj = new UserService()
@@ -49,14 +50,7 @@ const Register = () => {
                         <label>{CONSTANTS.NAME}</label>
                         <input type='text' className='form-control mt-2' placeholder={CONSTANTS.ENTER_YOUR_NAME} name={CONSTANTS.NAME_FIELD} onChange={onChangeHandler} required />
                     </div>
-                    <div className='form-group mt-4'>
-                        <label>{CONSTANTS.EMAIL}</label>
-                        <input type='email' className='form-control mt-2' placeholder={CONSTANTS.ENTER_AN_EMAIL} name={CONSTANTS.EMAIL_FIELD} onChange={onChangeHandler} required />
-                    </div>
-                    <div className='form-group mt-4'>
-                        <label>{CONSTANTS.PASSWORD}</label>
-                        <input type='password' className='form-control mt-2' placeholder={CONSTANTS.ENTER_PASSWORD} name={CONSTANTS.PASSWORD_FIELD} onChange={onChangeHandler} required />
-                    </div>
+                    <Forms onChangeHandler={onChangeHandler} />
                     <div className='form-group mt-4'>
                         <label>{CONSTANTS.CONFIRM_PASSWORD}</label>
                         <input type='password' className='form-control mt-2' placeholder={CONSTANTS.RE_ENTER_YOUR_PASSWORD} name={CONSTANTS.CONFIRM_PASSWORD_FIELD} onChange={onChangeHandler} required />
