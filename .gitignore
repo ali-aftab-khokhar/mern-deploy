@@ -6,6 +6,7 @@
 .pnp.js
 .env
 api/routes/.env
+.eslintrc.json
 
 # testing
 /coverage
