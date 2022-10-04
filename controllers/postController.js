@@ -20,7 +20,7 @@ const addNewPost = (req, res) => {
 
 const deleteThePost = (req, res) => {
   try {
-    PostServices.deleteThePost(req.params.id, res)
+    PostServices.deleteThePost(req.params.postId, res)
     res.status(200).send(CONSTANTS.POSTED)
   } catch {
     res.status(400).send(CONSTANTS.DELETION_FAILED)
@@ -29,7 +29,7 @@ const deleteThePost = (req, res) => {
 
 const editThePost = (req, res) => {
   try {
-    PostServices.editThePost(req.params.id, req.body.title, req.body.body, res)
+    PostServices.editThePost(req.params.postId, req.body.title, req.body.body, res)
     res.status(200).send(CONSTANTS.POSTED)
   } catch {
     res.status(400).send(CONSTANTS.EDIT_FAILED)
@@ -46,7 +46,7 @@ const getOnePost = (req, res) => {
 
 const getProfile = (req, res) => {
   try {
-    PostServices.getProfile(req.params.id, res)
+    PostServices.getProfile(req.params.postId, res)
   } catch {
     res.status(400).send(CONSTANTS.PROFILE_DATA_FAILED)
   }

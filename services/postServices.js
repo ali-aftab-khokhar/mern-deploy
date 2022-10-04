@@ -52,7 +52,7 @@ const editThePost = async (id, title, body, res) => {
 
 const getOnePost = (req, res) => {
   try {
-    Post.find({ _id: req.params.id }, function (err, doc) {
+    Post.find({ _id: req.params.postId }, function (err, doc) {
       if (!err) {
         res.status(200)
         res.send(doc)
@@ -94,7 +94,7 @@ const likeAndDislike = (req, res) => {
 
 const dislike = (req, res) => {
   try {
-    Post.findByIdAndUpdate(req.body.id,
+    Post.findByIdAndUpdate(req.body.postId,
       { $pull: { likes: req.body.email } },
       { new: true, upsert: true },
       function (err, doc) {
@@ -110,7 +110,7 @@ const dislike = (req, res) => {
 
 const like = (req, res) => {
   try {
-    Post.findByIdAndUpdate(req.body.id,
+    Post.findByIdAndUpdate(req.body.postId,
       { $push: { likes: req.body.email } },
       { new: true, upsert: true },
       function (err, doc) {
@@ -126,7 +126,7 @@ const like = (req, res) => {
 
 const publishThePost = (req, res) => {
   try {
-    Post.updateOne({ _id: req.body.id },
+    Post.updateOne({ _id: req.body.postId },
       { $set: { status: CONSTANTS.PUBLISHED } },
       function (err, doc) {
         if (!err) {
@@ -141,7 +141,7 @@ const publishThePost = (req, res) => {
 
 const unpublishThePost = (req, res) => {
   try {
-    Post.updateOne({ _id: req.body.id },
+    Post.updateOne({ _id: req.body.postId },
       { $set: { status: CONSTANTS.NOT_PUBLISHED } },
       function (err, doc) {
         if (!err) {

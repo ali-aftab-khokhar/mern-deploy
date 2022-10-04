@@ -3,12 +3,12 @@ const router = express()
 const { getAllComments, addNewComment, deleteTheComment, editTheComment } = require('../controllers/commentController')
 const auth = require('../middleware/auth')
 
-router.get('/:id/comments', auth, getAllComments)
+router.get('/:postId/comments', auth, getAllComments)
 
-router.post('/:id/comments', auth, addNewComment)
+router.post('/:postId/comments', auth, addNewComment)
 
-router.put('/comment/:id', auth, editTheComment)
+router.put('/comment/:commentId', auth, editTheComment)
 
-router.delete('/comment/:id', auth, deleteTheComment)
+router.delete('/comment/:commentId', auth, deleteTheComment)
 
 module.exports = router

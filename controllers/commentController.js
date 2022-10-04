@@ -3,7 +3,7 @@ const CommentServices = require('../services/commentServices')
 
 const getAllComments = (req, res) => {
   try {
-    CommentServices.getAllComments(req.params.id, res)
+    CommentServices.getAllComments(req.params.postId, res)
   } catch {
     res.status(400).send(CONSTANTS.COMMENTS_FETCH_FAILED)
   }
@@ -12,7 +12,7 @@ const getAllComments = (req, res) => {
 const addNewComment = (req, res) => {
   try {
     const payload = {
-      commentOn: req.params.id,
+      commentOn: req.params.postId,
       commentBy: req.body.commentBy,
       commentBody: req.body.commentBody
     }
@@ -25,7 +25,7 @@ const addNewComment = (req, res) => {
 
 const deleteTheComment = (req, res) => {
   try {
-    CommentServices.deleteTheComment(req.params.id, res)
+    CommentServices.deleteTheComment(req.params.commentId, res)
     res.status(200).send(CONSTANTS.DELETED)
   } catch {
     res.status(400).send(CONSTANTS.DELETION_FAILED)
@@ -34,7 +34,7 @@ const deleteTheComment = (req, res) => {
 
 const editTheComment = (req, res) => {
   try {
-    CommentServices.editTheComment(req.params.id, req.body.updatedComment, res)
+    CommentServices.editTheComment(req.params.commentId, req.body.updatedComment, res)
     res.status(200).send(CONSTANTS.UPDATED)
   } catch {
     res.status(400).send(CONSTANTS.EDIT_FAILED)

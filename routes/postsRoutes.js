@@ -10,18 +10,18 @@ router.get('/posts', getAllPosts)
 
 router.post('/posts', auth, addNewPost)
 
-router.put('/posts/:id', auth, editThePost)
+router.put('/posts/:postId', auth, editThePost)
 
-router.delete('/posts/:id', auth, deleteThePost)
+router.delete('/posts/:postId', auth, deleteThePost)
 
-router.put('/post/lod/:id', auth, likeAndDislike)
+router.put('/post/lod/:postId', auth, likeAndDislike)
 
-router.get('/post/:id/comments', auth, getOnePost)
+router.get('/post/:postId/comments', auth, getOnePost)
 
-router.get('/profile/:id', auth, getProfile)
+router.get('/profile/:postId', auth, getProfile)
 
-router.put('/post/:id/publish', auth, publishThePost)
+router.put('/post/:postId/publish', auth, publishThePost)
 
-router.put('/post/:id/unpublish', auth, unpublishThePost)
+router.put('/post/:postId/unpublish', auth, unpublishThePost)
 
 module.exports = router
