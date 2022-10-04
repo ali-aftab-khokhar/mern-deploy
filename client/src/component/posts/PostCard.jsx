@@ -65,72 +65,96 @@ const PostCard = (props) => {
     postServiceObj.unpublishThePost(id)
   }
 
-  return (
-        <div className='justify-content-center w-100'>
+  const commentsAndLikesButton = (post) => {
+    return (
+      context.isLoggedIn.email
+        ? <div className='d-flex'>
+          <button className="btn btn-dark" value={post._id} onClick={openComments}>
+            {CONSTANTS.COMMENTS}
+          </button>
+          <div>
             {
-                props.allPosts
-                  ? props.allPosts.map((post) => {
-                    return (
-                        <div className="card mb-3" key={post._id}>
-                            <div className="card-body">
-                                <h3 className='card-title'>{post.ownerName}</h3>
-                                <h5 className="card-text">{post.title}</h5>
-                                <p className="card-text">{post.body}</p>
-                                {
-                                    context.isLoggedIn.email
-                                      ? <div className='d-flex'>
-                                            <button className="btn btn-dark" value={post._id} onClick={openComments}>
-                                                {CONSTANTS.COMMENTS}
-                                            </button>
-                                            <div>
-                                                {
-                                                    post.likes.includes(context.isLoggedIn.email)
-                                                      ? <LikePost dislikeThePost={dislikeThePost} id={post._id} count={post.likes.length} />
-                                                      : <UnlikePost likeThePost={likeThePost} id={post._id} count={post.likes.length} />
-                                                }
-                                            </div>
-                                        </div>
-                                      : <div>
-                                            <button className="btn btn-dark" value={post._id} onClick={loginFirst}>
-                                                {CONSTANTS.LOGIN_FIRST}
-                                            </button>
-                                        </div>
-                                }
-
-                            </div>
-                            {
-                                props.currentUser.email === post.ownerEmail
-                                  ? <div className='text-end p-3'>
-                                        {
-                                            post.status === CONSTANTS.NOT_PUBLISHED
-                                              ? <button className='btn btn-info' value={post._id} onClick={publishThePost}>
-                                                    {CONSTANTS.PUBLISH_NOW}
-                                                </button>
-                                              : <button className='btn btn-info' value={post._id} onClick={unpublishThePost}>
-                                                    {CONSTANTS.UNPUBLISH_NOW}
-                                                </button>
-                                        }
-                                        <button className='btn btn-warning ms-2' value={post._id} onClick={editHandler}>
-                                            {CONSTANTS.EDIT}
-                                        </button>
-                                        <button className='btn btn-danger ms-2' value={post._id} onClick={props.deleteThePost}>
-                                            {CONSTANTS.DELETE}
-                                        </button>
-                                    </div>
-                                  : null
-                            }
-
-                            {
-                                props.currentUser.email === post.ownerEmail && activePostId === post._id && editToggle
-                                  ? <EditPost saveEdits={saveEdits} title={post.title} body={post.body} id={post._id} />
-                                  : null
-                            }
-                        </div>
-                    )
-                  })
-                  : <div>{CONSTANTS.LOADING}</div>
+              post.likes.includes(context.isLoggedIn.email)
+                ? <LikePost dislikeThePost={dislikeThePost} id={post._id} count={post.likes.length} />
+                : <UnlikePost likeThePost={likeThePost} id={post._id} count={post.likes.length} />
             }
+          </div>
         </div>
+        : <div>
+          <button className="btn btn-dark" value={post._id} onClick={loginFirst}>
+            {CONSTANTS.LOGIN_FIRST}
+          </button>
+        </div>
+    )
+  }
+
+  const publishButton = (post) => {
+    return (
+      post.status === CONSTANTS.NOT_PUBLISHED
+        ? <button className='btn btn-info' value={post._id} onClick={publishThePost}>
+          {CONSTANTS.PUBLISH_NOW}
+        </button>
+        : <button className='btn btn-info' value={post._id} onClick={unpublishThePost}>
+          {CONSTANTS.UNPUBLISH_NOW}
+        </button>
+    )
+  }
+
+  const postActionButtons = (post) => {
+    return (
+      props.currentUser.email === post.ownerEmail
+        ? <div className='text-end p-3'>
+          {
+            publishButton(post)
+          }
+          <button className='btn btn-warning ms-2' value={post._id} onClick={editHandler}>
+            {CONSTANTS.EDIT}
+          </button>
+          <button className='btn btn-danger ms-2' value={post._id} onClick={props.deleteThePost}>
+            {CONSTANTS.DELETE}
+          </button>
+        </div>
+        : null
+    )
+  }
+
+  const editPost = (post) => {
+    return (
+      props.currentUser.email === post.ownerEmail && activePostId === post._id && editToggle
+        ? <EditPost saveEdits={saveEdits} title={post.title} body={post.body} id={post._id} />
+        : null
+    )
+  }
+
+  return (
+    <div className='justify-content-center w-100'>
+      {
+        props.allPosts
+          ? props.allPosts.map((post) => {
+            return (
+              <div className="card mb-3" key={post._id}>
+                <div className="card-body">
+                  <h3 className='card-title'>{post.ownerName}</h3>
+                  <h5 className="card-text">{post.title}</h5>
+                  <p className="card-text">{post.body}</p>
+                  {
+                    commentsAndLikesButton(post)
+                  }
+
+                </div>
+                {
+                  postActionButtons(post)
+                }
+
+                {
+                  editPost(post)
+                }
+              </div>
+            )
+          })
+          : <div>{CONSTANTS.LOADING}</div>
+      }
+    </div>
   )
 }
 
