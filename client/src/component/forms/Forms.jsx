@@ -81,19 +81,35 @@ const Forms = (props) => {
     )
   }
 
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        {
-          props.type === CONSTANTS.FORM_TYPE_SIGNUP
-            ? <div>
-              <div className='form-group mb-4'>
-                <label>{CONSTANTS.NAME}</label>
-                <input type='text' className='form-control mt-2' placeholder={CONSTANTS.ENTER_YOUR_NAME} name={CONSTANTS.NAME_FIELD} onChange={onChangeHandler} required />
-              </div>
-            </div>
-            : null
-        }
+  const conditionallyRenderingNameField = () => {
+    return (
+      props.type === CONSTANTS.FORM_TYPE_SIGNUP
+        ? <div>
+          <div className='form-group mb-4'>
+            <label>{CONSTANTS.NAME}</label>
+            <input type='text' className='form-control mt-2' placeholder={CONSTANTS.ENTER_YOUR_NAME} name={CONSTANTS.NAME_FIELD} onChange={onChangeHandler} required />
+          </div>
+        </div>
+        : null
+    )
+  }
+
+  const conditionallyRenderingConfirmPasswordField = () => {
+    return (
+      props.type === CONSTANTS.FORM_TYPE_SIGNUP
+        ? <div>
+          <div className='form-group mt-4'>
+            <label>{CONSTANTS.CONFIRM_PASSWORD}</label>
+            <input type='password' className='form-control mt-2' placeholder={CONSTANTS.RE_ENTER_YOUR_PASSWORD} name={CONSTANTS.CONFIRM_PASSWORD_FIELD} onChange={onChangeHandler} required />
+          </div>
+        </div>
+        : null
+    )
+  }
+
+  const emailAndPasswordField = () => {
+    return (
+      <div>
         <div className='form-group'>
           <label>{CONSTANTS.EMAIL}</label>
           <input type='email' className='form-control mt-2' name={CONSTANTS.EMAIL_FIELD} placeholder={CONSTANTS.ENTER_AN_EMAIL} onChange={onChangeHandler} required />
@@ -102,15 +118,21 @@ const Forms = (props) => {
           <label>{CONSTANTS.PASSWORD}</label>
           <input type='password' className='form-control mt-2' name={CONSTANTS.PASSWORD_FIELD} placeholder={CONSTANTS.ENTER_PASSWORD} onChange={onChangeHandler} required />
         </div>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
         {
-          props.type === CONSTANTS.FORM_TYPE_SIGNUP
-            ? <div>
-              <div className='form-group mt-4'>
-                <label>{CONSTANTS.CONFIRM_PASSWORD}</label>
-                <input type='password' className='form-control mt-2' placeholder={CONSTANTS.RE_ENTER_YOUR_PASSWORD} name={CONSTANTS.CONFIRM_PASSWORD_FIELD} onChange={onChangeHandler} required />
-              </div>
-            </div>
-            : null
+          conditionallyRenderingNameField()
+        }
+        {
+          emailAndPasswordField()
+        }
+        {
+          conditionallyRenderingConfirmPasswordField()
         }
         {
           renderConditionalSubmitButtons()
