@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import CONSTANTS from '../constants'
+const API = '/api'
 
 class BaseServiceClass {
   putMethod (payload, success, error, url) {
     try {
-      axios.put(`/api/${url}`, payload)
+      axios.put(`${API}/${url}`, payload)
         .then((res) => {
           if (res.status === 200) {
             toast.success(success)
@@ -20,7 +21,7 @@ class BaseServiceClass {
 
   deleteMethod (url, error) {
     try {
-      axios.delete(`/api/${url}`)
+      axios.delete(`${API}/${url}`)
         .then((res) => {
           if (res.status === 200) {
             toast.success('Deleted')
@@ -35,7 +36,7 @@ class BaseServiceClass {
 
   async postMethod (payload, success, error, url = '') {
     try {
-      await axios.post(`/api/${url}`, payload)
+      await axios.post(`${API}/${url}`, payload)
         .then((res) => {
           console.log(res.status)
           if (res.status === 200) {
@@ -52,7 +53,7 @@ class BaseServiceClass {
 
   async specialPostMethod (credentials) {
     try {
-      return await (axios.post('/api/', credentials))
+      return await (axios.post(`${API}`, credentials))
     } catch {
       toast.error(CONSTANTS.INCORRECT_EMAIL_OR_PASSWORD)
     }

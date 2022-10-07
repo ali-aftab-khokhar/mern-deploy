@@ -92,7 +92,9 @@ const CONSTANTS = {
   LOGOUT_FAILED: 'Logout Failed',
   NEW_POST_FAILED: 'New Post Failed',
   DISLIKE_FAILED: 'Dislike Failed',
-  LIKE_FAILED: 'Like Failed'
+  LIKE_FAILED: 'Like Failed',
+  FORM_TYPE_LOGIN: 'type-login',
+  FORM_TYPE_SIGNUP: 'type-signup'
 }
 
 export default CONSTANTS
